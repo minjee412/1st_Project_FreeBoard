@@ -1,7 +1,7 @@
 import {Banner} from './Banner.styles';
 import React from "react";
 import Slider from "react-slick";
-import {CarouselWrapper, CarouselPicture1, CarouselPicture2, CarouselPicture3, CarouselPicture4, CarouselPicture5} from './Banner.styles'
+import {CarouselWrapper, CarouselPicture} from './Banner.styles'
  
 
 export default function SimpleSlider() {
@@ -13,29 +13,22 @@ export default function SimpleSlider() {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        variableWidth:true
-      };
+        // variableWidth:true
+    };
 
     return(
         
         <Banner>
             <Slider {...settings}>
                 <CarouselWrapper>
-                    <CarouselPicture1 />
+                    <CarouselPicture src="/header/banner/banner1.jpg"/>
                 </CarouselWrapper>
                 <CarouselWrapper>
-                    <CarouselPicture2 />
+                    <CarouselPicture src="/header/banner/banner2.jpg" />
                 </CarouselWrapper>
                 <CarouselWrapper>
-                    <CarouselPicture3 />
+                    <CarouselPicture src="/header/banner/banner3.jpg" />
                 </CarouselWrapper>
-                <CarouselWrapper>
-                    <CarouselPicture4 />
-                </CarouselWrapper>
-                <CarouselWrapper>
-                    <CarouselPicture5 />
-                </CarouselWrapper>
-                
             </Slider>
         </Banner>
         

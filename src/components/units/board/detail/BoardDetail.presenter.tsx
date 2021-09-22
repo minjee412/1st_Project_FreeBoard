@@ -2,10 +2,11 @@ import {CardWrapper, Wrapper, Header, AvatarWrapper, Avatar, Info, Writer, Creat
         Body, Title, Image, Contents, Youtube, LikeWrapper, IconWrapper, LikeIcon, LikeCount, DislikeIcon, 
         DislikeCount,
         BottomWrapper,
-        Button
+        Button, LinkIcon, LocationIcon
         } from '../detail/BoardDetail.styles'
 
 import ReactPlayer from 'react-player'
+import { Tooltip } from "antd";
 
 export default function BoardDetailUI (props){
     return(
@@ -19,6 +20,14 @@ export default function BoardDetailUI (props){
                             <CreatedAt>{props.data?.fetchBoard.createdAt}</CreatedAt>
                         </Info>
                     </AvatarWrapper>
+                    <IconWrapper>
+            <LinkIcon src="/board/detail/link.png" />
+            <Tooltip
+              placement="topRight"
+              title={`${props.data?.fetchBoard.boardAddress?.address} ${props.data?.fetchBoard.boardAddress?.addressDetail}`}>
+              <LocationIcon src="/board/detail/location.png" />
+            </Tooltip>
+          </IconWrapper>
                 </Header>
             
 

@@ -2,7 +2,9 @@ import { useState } from 'react'
 import BoardWriteUI from './BoardWrite.presenter'
 import { CREATE_BOARD,  UPDATE_BOARD} from './BoardWrite.queries'
 import { useRouter } from 'next/router'
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { FETCH_BOARD } from '../detail/BoardDetail.queries';
+
 
 
 export default function BoardWrite (props){
@@ -11,11 +13,17 @@ export default function BoardWrite (props){
     const [isActive, setIsActive] = useState(false)
 // 기본값을 false로 줘야 버튼 비활성화 및 배경색이 회색으로 나온다 !!!
 
+    const [ isOpen, setIsOpen ] = useState(false);
+    // 우편번호 검색 관련 Modal창 컨트롤
+
     const [ writer, setWriter ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ title, setTitle ] = useState('')
     const [ contents, setContents ] = useState('')
     const [ youtube, setYoutube ] = useState('')
+    const [zipcode, setZipcode] = useState("");
+    const [address, setAddress] = useState("");
+    const [addressDetail, setAddressDetail] = useState("");
 //  입력한값 state에 저장. 빈문자열로 초기화 
 
     const [ error_writer, error_setWriter ] = useState('')
@@ -25,6 +33,10 @@ export default function BoardWrite (props){
 
     const [createBoard] = useMutation(CREATE_BOARD)
     const [updateBoard] = useMutation(UPDATE_BOARD)
+
+    const {data} = useQuery(FETCH_BOARD,{
+        variables: {boardId: router.query.boardId}
+    })
 
     // onChange뒤에 모든 이벤트들에 (event)를 걸어주는게 맞으나, 아래 event를 쓰지 않는다면 생략 가능
     // 단, 아래 event를 쓸 경우에는 (event)를 반드시 써야 한다
@@ -87,6 +99,21 @@ export default function BoardWrite (props){
         setYoutube(event.target.value)
     }
 
+    function onClickAddressSearch (){
+        setIsOpen(true)
+    }
+
+    // daumpostcode에서 선택한 값을 data에 넣어 주는 함수
+    function onCompleteAddressSearch(data){
+        setAddress(data.address);
+        setZipcode(data.zonecode);
+        setIsOpen(false);
+    }
+
+    function onChangeAddressDetail(event){
+        setAddressDetail(event.target.value);
+    }
+
     async function onClickSubmit(){
         if(writer === ""){
             error_setWriter("작성자를 입력해주세요.")
@@ -113,7 +140,12 @@ export default function BoardWrite (props){
                             password: password,
                             title: title,
                             contents: contents,
-                            youtubeUrl:youtube
+                            youtubeUrl:youtube,
+                            boardAddress: {
+                                zipcode: zipcode,
+                                address: address,
+                                addressDetail: addressDetail
+                            },
                         }
                     }
             }) 
@@ -134,7 +166,8 @@ export default function BoardWrite (props){
                 password: password,
                 updateBoardInput:{
                     title: title,
-                    contents: contents
+                    contents: contents,
+                    youtubeUrl: youtube
                 }
             }
         })
@@ -158,7 +191,7 @@ export default function BoardWrite (props){
             error_password={error_password}
             error_title={error_title}
             error_contents={error_contents}
-            data={props.data}
+            data={data}
 
             youtube={youtube}
             onChangeYoutube={onChangeYoutube}
@@ -167,6 +200,14 @@ export default function BoardWrite (props){
             onClickUpdate={onClickUpdate}
 
             setWriter={setWriter}
+
+            isOpen={isOpen}
+            zipcode={zipcode}
+            address={address}
+            addressDetail={addressDetail}
+            onClickAddressSearch={onClickAddressSearch}
+            onCompleteAddressSearch={onCompleteAddressSearch}
+            onChangeAddressDetail={onChangeAddressDetail}
         />
     )
 

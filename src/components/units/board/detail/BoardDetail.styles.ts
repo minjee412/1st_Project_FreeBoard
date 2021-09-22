@@ -152,3 +152,7 @@ export const Button = styled.button`
 }
     /* 마우스 올렸을때 노란색으로 나옴 */
 `
+
+export const LinkIcon = styled.img``;
+
+export const LocationIcon = styled.img``;

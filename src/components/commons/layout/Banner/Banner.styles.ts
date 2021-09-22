@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 export const Banner = styled.div`
     width: 100%;
-    height: 350px;
+    height: 630px;
     background-color: #efebe9;
     /* display: flex;
     flex-direction: row;
@@ -22,45 +22,11 @@ export const CarouselWrapper = styled.div`
 
 `
 
-export const CarouselPicture1 = styled.div`
-    width: 100%;
-    height: 350px;
-    /* border: 1px solid black; */
-    margin-left: 700px;
-    background-image: url('/header/banner/breakfast.jpg');
-    background-size: cover;
-`
-export const CarouselPicture2 = styled.div`
-    width: 100%;
-    height: 350px;
+export const CarouselPicture = styled.img`
+    width:100%;
+    height: 630px;
     /* border: 1px solid black; */
     /* margin-left: 700px; */
-    background-image: url('/header/banner/hotel.jpg');
-    background-size: cover;
+    /* background-image: url('/header/banner/breakfast.jpg'); */
+    /* background-size: cover; */
 `
-export const CarouselPicture3 = styled.div`
-    width: 100%;
-    height: 350px;
-    /* border: 1px solid black; */
-    margin-left: 700px;
-    background-image: url('/header/banner/indoors.jpg');
-    background-size: cover;
-`
-
-export const CarouselPicture4 = styled.div`
-    width: 100%;
-    height: 350px;
-    /* border: 1px solid black; */
-    margin-left: 700px;
-    background-image: url('/header/banner/reception.jpg');
-    background-size: cover;
-`
-export const CarouselPicture5 = styled.div`
-    width: 100%;
-    height: 350px;
-    /* border: 1px solid black; */
-    margin-left: 700px;
-    background-image: url('/header/banner/trip.jpg');
-    background-size: cover;
-`
-
