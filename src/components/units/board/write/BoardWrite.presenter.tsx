@@ -4,7 +4,7 @@ import { Title, Wrapper, Writer_Wrapper, Input_Wrapper, Label, Writer, Password,
         SubmitButton, Error
 } from './BoardWrite.styles';
 
-import {Modal} from 'antd'
+import { Modal} from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 
 
@@ -38,7 +38,7 @@ export default function BoardWriteUI(props){
                         <Label>비밀번호</Label>
                         <Password 
                             type="password" 
-                            placeholder="비밀번호를 입력해주세요." 
+                            placeholder={props.isEdit ? "비밀번호가 일치 해야 합니다." : "비밀번호를 입력해주세요."}
                             onChange = {props.onChangePassword}
                         />
                         <Error>{props.error_password}</Error>
@@ -61,7 +61,7 @@ export default function BoardWriteUI(props){
                     <Contents 
                         placeholder="내용을 작성해주세요."
                         onChange = {props.onChangeContents}
-
+                        defaultValue={props.data?.fetchBoard.contents}
                     />
                     <Error>{props.error_contents}</Error>
                 </Input_Wrapper>
@@ -128,18 +128,21 @@ export default function BoardWriteUI(props){
 
                 <Button_Wrapper>
                     {!props.isEdit &&(
-                    <SubmitButton 
-                        onClick={props.onClickSubmit} 
-                        isActive={props.isActive} 
-                        disabled={!props.isActive}>
-                            등록하기
-                    </SubmitButton>
+                    <>    
+                        <SubmitButton 
+                            onClick={props.onClickSubmit} 
+                            isActive={props.isActive} 
+                            disabled={!props.isActive}>
+                                등록하기
+                        </SubmitButton>
+                    </>
                     )}
                     {/* isActive와 disabled는 임의로 만든 함수(기능) */}
                     {/* isActive 가 true일때는 disabled가 비활성화 되고, isActive가 false일때는 disabled가 활성화 되어야 되기 때문에 조건을 반대로 줘야 한다. */}
                         
                     {props.isEdit && (
-                    <SubmitButton onClick={props.onClickUpdate} isActive={true}>수정하기</SubmitButton>)}
+                    <SubmitButton onClick={props.onClickUpdate} isActive={true}>수정하기
+                    </SubmitButton>)}
                 </Button_Wrapper>
             </Wrapper>
         </>

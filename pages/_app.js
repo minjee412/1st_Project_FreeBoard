@@ -1,8 +1,7 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 import '../styles/globals.css'
 import 'antd/dist/antd.css'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 
 import List from '../src/components/commons'
 
