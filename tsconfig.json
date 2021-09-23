@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/units/board/write/BoardWrite.styles.js", "src/components/units/board/write/BoardWrite.queries.js", "src/components/units/board/write/BoardWrite.presenter.js", "src/components/units/board/write/BoardWrite.container.js", "src/components/commons/commons copy.container"  ],
+, "src/components/units/board/write/BoardWrite.styles.js", "src/components/units/board/write/BoardWrite.queries.js", "src/components/units/board/write/BoardWrite.presenter.js", "src/components/units/board/write/BoardWrite.container.js", "src/components/commons/commons copy.container", "pages/Landing/index.js"  ],
   "exclude": [
     "node_modules"
   ]
