@@ -7,9 +7,7 @@ import { Title, Wrapper, Writer_Wrapper, Input_Wrapper, Label, Writer, Password,
 import { Modal} from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 
-
-
-export default function BoardWriteUI(props){
+export default function BoardWriteUI(props:any){
 
     return(
         <>
@@ -104,18 +102,24 @@ export default function BoardWriteUI(props){
 
                 <Image_Wrapper>
                     <Label>사진첨부</Label>
-                    <UploadButton>
+                    <UploadButton onClick={props.onClickButton1}>
                         <div>+</div>
                         <div>Up load</div>
                     </UploadButton>
-                    <UploadButton>
+                    <input type='file' style={{display: 'none'}} ref={props.fileRef1}  onChange={props.onChangeFile}></input>
+
+                    <UploadButton onClick={props.onClickButton2}>
                         <div>+</div>
                         <div>Up load</div>
                     </UploadButton>
-                    <UploadButton>
+                    <input type='file' style={{display: 'none'}} ref={props.fileRef2}  onChange={props.onChangeFile}></input>
+
+                    <UploadButton onClick={props.onClickButton3}>
                         <div>+</div>
                         <div>Up load</div>
                     </UploadButton>
+                    <input type='file' style={{display: 'none'}} ref={props.fileRef3}  onChange={props.onChangeFile}></input>
+
                 </Image_Wrapper>
 
                 <OptionWrapper>

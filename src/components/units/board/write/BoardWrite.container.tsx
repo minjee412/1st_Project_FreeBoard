@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import BoardWriteUI from './BoardWrite.presenter'
-import { CREATE_BOARD,  UPDATE_BOARD} from './BoardWrite.queries'
+import { CREATE_BOARD,  UPDATE_BOARD, UPLOAD_FILE} from './BoardWrite.queries'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery } from '@apollo/client';
 import { FETCH_BOARD } from '../detail/BoardDetail.queries';
 
 
 
-export default function BoardWrite (props){
+export default function BoardWrite (props: any){
     const router = useRouter()
+    const fileRef = useRef<HTMLInputElement>()
 
     const [isActive, setIsActive] = useState(false)
 // 기본값을 false로 줘야 버튼 비활성화 및 배경색이 회색으로 나온다 !!!
@@ -24,6 +25,8 @@ export default function BoardWrite (props){
     const [zipcode, setZipcode] = useState("");
     const [address, setAddress] = useState("");
     const [addressDetail, setAddressDetail] = useState("");
+
+    const [imageUrl, setImageUrl] = useState("")
 //  입력한값 state에 저장. 빈문자열로 초기화 
 
     const [ error_writer, error_setWriter ] = useState('')
@@ -31,8 +34,12 @@ export default function BoardWrite (props){
     const [ error_title, error_setTitle ] = useState('')
     const [ error_contents, error_setContents ] = useState('')
 
+
+
     const [createBoard] = useMutation(CREATE_BOARD)
     const [updateBoard] = useMutation(UPDATE_BOARD)
+    const [ uploadFile ] = useMutation(UPLOAD_FILE)
+
 
     const {data} = useQuery(FETCH_BOARD,{
         variables: {boardId: router.query.boardId}
@@ -43,7 +50,7 @@ export default function BoardWrite (props){
     // onSubmit에 에러 조건을 작성하면 버튼을 눌러야지 에러메세지 판단이 가능하고,
     // onChange에 에러 조건을 걸면 만족한 즉시 에러메세지가 없어 진다.
 
-    function onChangeWriter(event){
+    function onChangeWriter(event:any){
         setWriter(event.target.value) 
      //입력 된 value 값이 setWriter를 통해 writer값으로 들어 간다.
         if(event.target.value !== ""){
@@ -57,7 +64,7 @@ export default function BoardWrite (props){
         }
     }
 
-    function onChangePassword(event){
+    function onChangePassword(event:any){
         setPassword(event.target.value)
         if(event.target.value  !== ""){
             error_setPassword("")
@@ -69,7 +76,7 @@ export default function BoardWrite (props){
         }
     }
 
-    function onChangeTitle(event){
+    function onChangeTitle(event:any){
         setTitle(event.target.value)
         if(event.target.value  !== ""){
             error_setTitle("")
@@ -82,7 +89,7 @@ export default function BoardWrite (props){
         }
     }
 
-    function onChangeContents(event){
+    function onChangeContents(event:any){
         setContents(event.target.value)
         if(event.target.value  !== ""){
             error_setContents("")
@@ -95,7 +102,7 @@ export default function BoardWrite (props){
         }
     }
 
-    function onChangeYoutube(event){
+    function onChangeYoutube(event:any){
         setYoutube(event.target.value)
     }
 
@@ -104,14 +111,47 @@ export default function BoardWrite (props){
     }
 
     // daumpostcode에서 선택한 값을 data에 넣어 주는 함수
-    function onCompleteAddressSearch(data){
+    function onCompleteAddressSearch(data:any){
         setAddress(data.address);
         setZipcode(data.zonecode);
         setIsOpen(false);
     }
 
-    function onChangeAddressDetail(event){
+    function onChangeAddressDetail(event:any){
         setAddressDetail(event.target.value);
+    }
+
+    function onClickButton (){
+        fileRef.current?.click()
+    }
+
+    async function onChangeFile(event:any){
+        const myFile = event.target.files[0]
+
+        //파일 검증
+        if (!myFile){
+            alert("파일이 없습니다.")
+            return;
+        }
+
+        // 1MB: 1KB * 1024 , 1KB: 1024 BITE
+        if(myFile.size > 2000 * 1024 * 1024){
+            alert("파일 용량이 너무 큽니다. (제한: 2GB")
+            return;
+        }
+
+        if(!myFile.type.includes("jpeg") && !myFile.type.includes("png")){
+            alert("jpeg또는 png만 업로드 가능 합니다.")
+            return;
+        }
+
+        const result = await uploadFile({
+            variables:{
+                file: myFile
+            }
+        })
+        console.log(result.data.uploadFile.url)
+        setImageUrl(result.data.uploadFile.url)
     }
 
     async function onClickSubmit(){
@@ -146,6 +186,7 @@ export default function BoardWrite (props){
                                 address: address,
                                 addressDetail: addressDetail
                             },
+                            images: [imageUrl],
                         }
                     }
             }) 
@@ -208,6 +249,11 @@ export default function BoardWrite (props){
             onClickAddressSearch={onClickAddressSearch}
             onCompleteAddressSearch={onCompleteAddressSearch}
             onChangeAddressDetail={onChangeAddressDetail}
+
+            onChangeFile={onChangeFile}
+            fileRef={fileRef}
+            onClickButton={onClickButton}
+            imageUrl={imageUrl}
         />
     )
 

@@ -6,7 +6,7 @@ import {FETCH_BOARD, DELETE_BOARD, LIKE_BOARD, DISLIKE_BOARD} from './BoardDetai
 // fetchBoard(
 // boardId: ID!
 // ): Board!
-export default function BoardDetailContainer (){
+export default function BoardDetailContainer (props:any){
     const router = useRouter();
     const [deleteBoard] = useMutation(DELETE_BOARD);
     const { data } = useQuery(FETCH_BOARD,{
@@ -25,7 +25,7 @@ export default function BoardDetailContainer (){
         alert("게시글이 삭제 되었습니다.");
         router.push("/boards");
         
-        } catch(error){
+        } catch(error:any){
             alert(error.message)
         }
     }
@@ -62,6 +62,7 @@ export default function BoardDetailContainer (){
         onClickLike={onClickLike}
         onClickDislike={onClickDislike}
         onClickMovetoEdit={onClickMovetoEdit}
+        
         />
     )
 }

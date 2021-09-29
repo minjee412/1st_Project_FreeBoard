@@ -8,7 +8,7 @@ import {CardWrapper, Wrapper, Header, AvatarWrapper, Avatar, Info, Writer, Creat
 import ReactPlayer from 'react-player'
 import { Tooltip } from "antd";
 
-export default function BoardDetailUI (props){
+export default function BoardDetailUI (props:any){
     return(
         <Wrapper>
             <CardWrapper>
@@ -33,7 +33,9 @@ export default function BoardDetailUI (props){
 
             <Body>
                 <Title>{props.data?.fetchBoard.title}</Title>
-                <Image></Image>
+                {props.data?.fetchBoard.images.map((el: any, idx: any) => (
+                <Image key={idx} src={`https://storage.googleapis.com/${el}`}/>
+                ))}
                 <Contents>{props.data?.fetchBoard.contents}</Contents>
                 <Youtube>
                     <ReactPlayer 

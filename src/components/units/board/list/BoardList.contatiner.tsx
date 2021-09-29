@@ -23,11 +23,11 @@ export default function BoardListContainer (){
     //     router.push(`/boards/${event.currentTarget.id}`)
     // }
 
-    function onClickRow(event){
+    function onClickRow(event:any){
         router.push(`/boards/${event.currentTarget.id}`)
     }
 
-    function onClickPage(event){
+    function onClickPage(event:any){
         refetch ({page : Number(event.target.id)})
     }
 

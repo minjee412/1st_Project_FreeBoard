@@ -9,12 +9,16 @@ import Landing from './layout/Landing_Page/Landing.container'
 const Wrapper = styled.div``
 
 const Body = styled.div`
-    display: flex;
-    justify-content: center;
+  /* height: 500px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* border:  1px solid black; */
 `
 const HIDDEN_WRAPPER = ["/Landing"]
 
-export default function List(props){
+export default function List(props:any){
     const router = useRouter()
     const isHiddenWrapper = HIDDEN_WRAPPER.includes(router.pathname);
 

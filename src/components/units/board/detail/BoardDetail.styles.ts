@@ -69,7 +69,7 @@ export const Title = styled.h1`
     /* border: 1px solid black; */
 `;
 
-export const Image = styled.div`
+export const Image = styled.img`
     height: 480px;
     width: 996px;
     background-color: grey;

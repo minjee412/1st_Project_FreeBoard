@@ -1,6 +1,6 @@
 import {Page, Pagenation, ColumnHeaderTitle1, ColumnHeaderTitle, ColumnHeaderBasic, Row, TableBottom, TableTop, Wrapper, Footer, Button, PencilIcon} from './BoardList.styles'
 
-export default function BoardListUI(props){
+export default function BoardListUI(props:any){
     return(
         <Wrapper>
             <TableTop />
@@ -10,7 +10,7 @@ export default function BoardListUI(props){
             <ColumnHeaderBasic>작성자</ColumnHeaderBasic>
             <ColumnHeaderBasic>날짜</ColumnHeaderBasic>
             </Row>
-            {props.data?.fetchBoards.map((el,index) => (
+            {props.data?.fetchBoards.map((el:any,index:any) => (
             <Row key={el._id} id={el._id} onClick={props.onClickRow}>
                 {/* 
                     이번트 버블링: 자식 (title, writer, createdAt)중 아무곳에나 클릭(이벤트) 해도
