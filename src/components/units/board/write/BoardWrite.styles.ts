@@ -166,6 +166,10 @@ export const Button_Wrapper = styled.div`
 	/* border: 1px solid black; */
 `;
 
+interface IProps{
+	isActive: boolean
+}
+
 export const SubmitButton = styled.button`
 width: 179px;
 	height: 52px;
@@ -174,6 +178,6 @@ width: 179px;
 	font-weight: 500;
 	margin-left: 12px;
 	margin-right: 12px;
-	background-color: ${(props)=> props.isActive ? "#FFD600" : "grey"};
+	background-color: ${(props:IProps)=> props.isActive ? "#FFD600" : "grey"};
 	cursor: pointer;
 `;
