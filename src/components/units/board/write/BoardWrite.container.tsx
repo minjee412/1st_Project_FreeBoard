@@ -1,4 +1,4 @@
-import { ChangeEvent, SetStateAction, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ import {
 
 export default function BoardWrite(props: any) {
   const router = useRouter();
-  const fileRef = useRef<HTMLInputElement>();
+  // const fileRef = useRef<HTMLInputElement>();
 
   const [isActive, setIsActive] = useState(false);
   // 기본값을 false로 줘야 버튼 비활성화 및 배경색이 회색으로 나온다 !!!
@@ -144,9 +144,9 @@ export default function BoardWrite(props: any) {
     setAddressDetail(event.target.value);
   }
 
-  function onClickButton() {
-    fileRef.current?.click();
-  }
+  // function onClickButton() {
+  //   fileRef.current?.click();
+  // }
 
   //////////////////////////checkValidationImage폴더로 이동///////////////////////////
   // 파일 검증
@@ -280,9 +280,9 @@ export default function BoardWrite(props: any) {
         },
       });
       router.push(`/boards/${result.data.updateBoard._id}`);
-    } catch (err) {
+    } catch (error: any) {
       // console.log(err.message)
-      alert(err.message);
+      alert(error.message);
     }
   }
 
@@ -311,11 +311,11 @@ export default function BoardWrite(props: any) {
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onChangeAddressDetail={onChangeAddressDetail}
-      fileRef={fileRef}
-      onClickButton={onClickButton}
       //////////////////// 이미지 1차 실습 /////////////////////
       // imageUrl={imageUrl}
       // onChangeFile={onChangeFile}
+      // fileRef={fileRef}
+      // onClickButton={onClickButton}
       //////////////////////////////////////////////////////
 
       //////////////////// 이미지 2차 실습 ////////////////////
