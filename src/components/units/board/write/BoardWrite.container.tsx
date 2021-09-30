@@ -28,7 +28,9 @@ export default function BoardWrite(props: any) {
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
 
-  const [imageUrl, setImageUrl] = useState([]);
+  // const [imageUrl, setImageUrl] = useState([]); // 1차 실습
+  const [files, setFiles] = useState<(File | null)[]>([null, null, null]); // 이미지 2차 실습
+
   //  입력한값 state에 저장. 빈문자열로 초기화
 
   const [error_writer, error_setWriter] = useState("");
@@ -70,7 +72,7 @@ export default function BoardWrite(props: any) {
     }
   }
 
-  function onChangePassword(event: any) {
+  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
     if (event.target.value !== "") {
       error_setPassword("");
@@ -87,7 +89,7 @@ export default function BoardWrite(props: any) {
     }
   }
 
-  function onChangeTitle(event: any) {
+  function onChangeTitle(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
     if (event.target.value !== "") {
       error_setTitle("");
@@ -105,9 +107,7 @@ export default function BoardWrite(props: any) {
     }
   }
 
-  function onChangeContents(event: {
-    target: { value: SetStateAction<string> };
-  }) {
+  function onChangeContents(event: ChangeEvent<HTMLInputElement>) {
     setContents(event.target.value);
     if (event.target.value !== "") {
       error_setContents("");
@@ -125,9 +125,7 @@ export default function BoardWrite(props: any) {
     }
   }
 
-  function onChangeYoutube(event: {
-    target: { value: SetStateAction<string> };
-  }) {
+  function onChangeYoutube(event: ChangeEvent<HTMLInputElement>) {
     setYoutube(event.target.value);
   }
 
@@ -142,9 +140,7 @@ export default function BoardWrite(props: any) {
     setIsOpen(false);
   }
 
-  function onChangeAddressDetail(event: {
-    target: { value: SetStateAction<string> };
-  }) {
+  function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
   }
 
@@ -152,34 +148,46 @@ export default function BoardWrite(props: any) {
     fileRef.current?.click();
   }
 
-  async function onChangeFile(event: { target: { files: any[] } }) {
-    const myFile = event.target.files[0];
+  //////////////////////////checkValidationImage폴더로 이동///////////////////////////
+  // 파일 검증
+  //   if (!myFile) {
+  //     alert("파일이 없습니다.");
+  //     return;
+  //   }
 
-    // 파일 검증
-    if (!myFile) {
-      alert("파일이 없습니다.");
-      return;
-    }
+  //   // 1MB: 1KB * 1024 , 1KB: 1024 BITE
+  //   if (myFile.size > 2000 * 1024 * 1024) {
+  //     alert("파일 용량이 너무 큽니다. (제한: 2GB");
+  //     return;
+  //   }
 
-    // 1MB: 1KB * 1024 , 1KB: 1024 BITE
-    if (myFile.size > 2000 * 1024 * 1024) {
-      alert("파일 용량이 너무 큽니다. (제한: 2GB");
-      return;
-    }
+  //   if (!myFile.type.includes("jpeg") && !myFile.type.includes("png")) {
+  //     alert("jpeg또는 png만 업로드 가능 합니다.");
+  //     return;
+  //   }
 
-    if (!myFile.type.includes("jpeg") && !myFile.type.includes("png")) {
-      alert("jpeg또는 png만 업로드 가능 합니다.");
-      return;
-    }
+  //   const result = await uploadFile({
+  //     variables: {
+  //       file: myFile,
+  //     },
+  //   });
+  //   console.log(result.data.uploadFile.url);
+  //   setImageUrl(imageUrl.concat(result.data.uploadFile.url));
+  // }
+  //////////////////////////////////////////////////////////////////////////////
 
-    const result = await uploadFile({
-      variables: {
-        file: myFile,
-      },
-    });
-    console.log(result.data.uploadFile.url);
-    setImageUrl(imageUrl.concat(result.data.uploadFile.url));
+  //////////////////// 이미지 1차 실습 /////////////////////////////////
+  // async function onChangeFile(event: { target: { files: any[] } }) {
+  //   const myFile = event.target.files[0];
+  ///////////////////////////////////////////////////////////////////
+
+  //////////////////// 이미지 2차 실습 /////////////////////////////////
+  function onChangeFiles(file: File, index: number) {
+    const newFiles = [...files]; // [File1, null, null]
+    newFiles[index] = file; // [File1, null,File2]
+    setFiles(newFiles);
   }
+  ///////////////////////////////////////////////////////////////////
 
   async function onClickSubmit() {
     if (writer === "") {
@@ -200,6 +208,13 @@ export default function BoardWrite(props: any) {
 
     if (writer !== "" && password !== "" && title !== "" && contents !== "") {
       try {
+        ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
+        const uploadFiles = files // [File1, File2, ""]
+          .filter((el) => el) // [File1, File2]
+          .map((el) => uploadFile({ variables: { file: el } })); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ]
+        const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ])
+        const myImages = results.map((el) => el.data.uploadFile.url); // ["강아지이미지.png", "고양이이미지.png"]
+        ///////////////////////////////////////////////////////////////////////////////////////////
         const result = await createBoard({
           variables: {
             createBoardInput: {
@@ -213,12 +228,13 @@ export default function BoardWrite(props: any) {
                 address: address,
                 addressDetail: addressDetail,
               },
-              images: [...imageUrl],
+              // images: [...imageUrl], // 이미지 1차 실습
+              images: myImages, // 이미지 2차 실습
             },
           },
         });
         // console.log(result)
-        console.log(imageUrl);
+        // console.log(imageUrl);
         router.push(`/boards/${result.data?.createBoard._id}`);
       } catch (error) {
         console.log(error);
@@ -227,21 +243,46 @@ export default function BoardWrite(props: any) {
   }
 
   async function onClickUpdate() {
+    if (!title && false && !youtube && !zipcode && !address && !addressDetail) {
+      alert("수정된 내용이 없습니다.");
+      return;
+    }
+
+    interface IMyUpdateBoardInput {
+      title?: string;
+      contents?: string;
+      youtubeUrl?: string;
+      boardAddress?: {
+        zipcode?: string;
+        address?: string;
+        addressDetail?: string;
+      };
+    }
+
+    const myUpdateboardInput: IMyUpdateBoardInput = {};
+    if (title) myUpdateboardInput.title = title;
+    if (contents) myUpdateboardInput.contents = contents;
+    if (youtube) myUpdateboardInput.youtubeUrl = youtube;
+    if (zipcode || address || addressDetail) {
+      myUpdateboardInput.boardAddress = {};
+      if (zipcode) myUpdateboardInput.boardAddress.zipcode = zipcode;
+      if (address) myUpdateboardInput.boardAddress.address = address;
+      if (addressDetail)
+        myUpdateboardInput.boardAddress.addressDetail = addressDetail;
+    }
+
     try {
       const result = await updateBoard({
         variables: {
           boardId: router.query.boardId,
           password: password,
-          updateBoardInput: {
-            title: title,
-            contents: contents,
-            youtubeUrl: youtube,
-          },
+          updateBoardInput: myUpdateboardInput,
         },
       });
       router.push(`/boards/${result.data.updateBoard._id}`);
     } catch (err) {
-      alert(err);
+      // console.log(err.message)
+      alert(err.message);
     }
   }
 
@@ -253,8 +294,6 @@ export default function BoardWrite(props: any) {
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
       onClickSubmit={onClickSubmit}
-      // onClickUpdate={onClickUpdate}
-
       error_writer={error_writer}
       error_password={error_password}
       error_title={error_title}
@@ -272,10 +311,16 @@ export default function BoardWrite(props: any) {
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onChangeAddressDetail={onChangeAddressDetail}
-      onChangeFile={onChangeFile}
       fileRef={fileRef}
       onClickButton={onClickButton}
-      imageUrl={imageUrl}
+      //////////////////// 이미지 1차 실습 /////////////////////
+      // imageUrl={imageUrl}
+      // onChangeFile={onChangeFile}
+      //////////////////////////////////////////////////////
+
+      //////////////////// 이미지 2차 실습 ////////////////////
+      onChangeFiles={onChangeFiles}
+      /////////////////////////////////////////////////////
     />
   );
 }

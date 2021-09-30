@@ -11,7 +11,7 @@ import "antd/dist/antd.css";
 
 function MyApp({ Component, pageProps }) {
   const uploadLink = createUploadLink({
-    uri: "http://backend02.codebootcamp.co.kr/graphql",
+    uri: "http://backend03.codebootcamp.co.kr/graphql",
   });
 
   const client = new ApolloClient({

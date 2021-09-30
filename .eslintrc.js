@@ -16,5 +16,8 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "spaced-comment": "off",
+    camelcase: "off",
+    "no-constant-condition": "off",
   },
 };

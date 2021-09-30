@@ -25,6 +25,7 @@ import {
 
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 
 export default function BoardWriteUI(props: any) {
   return (
@@ -128,6 +129,9 @@ export default function BoardWriteUI(props: any) {
 
         <Image_Wrapper>
           <Label>사진첨부</Label>
+
+          {/* 
+          /////////////1차 이미지 실습 ///////////////////////////
           <UploadButton onClick={props.onClickButton}>
             <div>+</div>
             <div>Up load</div>
@@ -136,7 +140,7 @@ export default function BoardWriteUI(props: any) {
             type="file"
             style={{ display: "none" }}
             ref={props.fileRef}
-            onChange={props.onChangeFile}
+            onChange={props.onChangeFiles}
           ></input>
 
           <UploadButton onClick={props.onClickButton}>
@@ -147,7 +151,7 @@ export default function BoardWriteUI(props: any) {
             type="file"
             style={{ display: "none" }}
             ref={props.fileRef}
-            onChange={props.onChangeFile}
+            onChange={props.onChangeFiles}
           ></input>
 
           <UploadButton onClick={props.onClickButton}>
@@ -158,15 +162,27 @@ export default function BoardWriteUI(props: any) {
             type="file"
             style={{ display: "none" }}
             ref={props.fileRef}
-            onChange={props.onChangeFile}
-          ></input>
+            onChange={props.onChangeFiles}
+          ></input> 
+          /////////////////////////////////////////////////////// 
+          */}
+
+          {/* ////////////// 2차 이미지 실습 /////////////////////////// */}
+          {new Array(3).fill(1).map((el, index) => (
+            <Uploads01
+              key={`${el}_${index}`}
+              index={index}
+              onChangeFiles={props.onChangeFiles}
+            />
+          ))}
+          {/* ////////////// 2차 이미지 실습 /////////////////////////// */}
         </Image_Wrapper>
 
         <OptionWrapper>
           <Label>메인설정</Label>
-          <RadioButton type="radio" />
+          <RadioButton type="radio" name="main_setting" />
           <RadioRabel>유튜브</RadioRabel>
-          <RadioButton type="radio" />
+          <RadioButton type="radio" name="main_setting" />
           <RadioRabel>사진</RadioRabel>
         </OptionWrapper>
 
