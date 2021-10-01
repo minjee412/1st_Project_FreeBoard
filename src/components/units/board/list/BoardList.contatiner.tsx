@@ -7,9 +7,10 @@ import _ from "lodash";
 
 export default function BoardListContainer() {
   const [startPage, setStartPage] = useState(1);
+  const [myKeyword, setMyKeyword] = useState("");
   const [mySearch, setMySearch] = useState("");
   const { data, refetch } = useQuery(FETCH_BOARDS, {
-    variables: { search: mySearch, page: startPage }, // 안에 search: mySearch를 추가 하면 검색하기 누르지 않아도 바로 검색 됨
+    variables: { search: myKeyword, page: startPage }, // 안에 search: mySearch를 추가 하면 검색하기 누르지 않아도 바로 검색 됨
   });
   const router = useRouter();
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
@@ -61,7 +62,8 @@ export default function BoardListContainer() {
   }
 
   function onClickSearch() {
-    refetch({ search: mySearch, page: 1 });
+    refetch({ search: myKeyword, page: 1 });
+    setMyKeyword(mySearch);
   }
 
   return (
