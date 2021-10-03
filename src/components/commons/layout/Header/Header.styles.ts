@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   height: 100px;
@@ -26,7 +26,7 @@ export const InnerLogo = styled.div`
   width: 80px;
   height: 80px;
   /* font-weight: bold; */
-  background-image: url('/header/logo/여행연구소.png');
+  background-image: url("/header/logo/여행연구소.png");
   background-size: cover;
   /* font-style: italic; */
   /* color: #5729ff; */

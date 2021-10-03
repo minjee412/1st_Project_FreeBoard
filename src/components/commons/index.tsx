@@ -1,12 +1,10 @@
-import styled from '@emotion/styled'
-import Header from './layout/Header/Header.container'
-import Banner from './layout/Banner/Banner.container'
-import Navi from './layout/Menu/Menu.container'
-import { useRouter } from 'next/router'
-import Landing from './layout/Landing_Page/Landing.container'
-
-
-const Wrapper = styled.div``
+import styled from "@emotion/styled";
+import Header from "./layout/Header/Header.container";
+import Banner from "./layout/Banner/Banner.container";
+import Navi from "./layout/Menu/Menu.container";
+import { useRouter } from "next/router";
+import Landing from "./layout/Landing_Page/Landing.container";
+const Wrapper = styled.div``;
 
 const Body = styled.div`
   /* height: 500px; */
@@ -15,25 +13,23 @@ const Body = styled.div`
   align-items: center;
 
   /* border:  1px solid black; */
-`
-const HIDDEN_WRAPPER = ["/Landing"]
+`;
+const HIDDEN_WRAPPER = ["/Landing"];
 
-export default function List(props:any){
-    const router = useRouter()
-    const isHiddenWrapper = HIDDEN_WRAPPER.includes(router.pathname);
+export default function List(props: any) {
+  const router = useRouter();
+  const isHiddenWrapper = HIDDEN_WRAPPER.includes(router.pathname);
 
-    return(
+  return (
     <>
-        {isHiddenWrapper 
-            && <Landing/> 
-            || <Wrapper>
-                    <Header />
-                    <Banner/>
-                    <Navi />
-                    <Body>{props.children}</Body>
-                </Wrapper>
-        }
+      {(isHiddenWrapper && <Landing />) || (
+        <Wrapper>
+          <Header />
+          <Banner />
+          <Navi />
+          <Body>{props.children}</Body>
+        </Wrapper>
+      )}
     </>
-    )
-
+  );
 }
