@@ -1,10 +1,13 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LoginPagePresenter from "./login.presenter";
 import { LOGIN_USER } from "./login.query";
+import { GlobalContext } from "../../../../pages/_app";
 
 export default function LoginPageContainer() {
+  const { setAccessToken } = useContext(GlobalContext);
+
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -35,15 +38,19 @@ export default function LoginPageContainer() {
 
   async function onClickLogin() {
     try {
-      await loginUser({
+      const result = await loginUser({
         // const result = await loginUser({
         variables: {
           password: password,
           email: email,
         },
       });
-      router.push(`/boards/`);
+
       // router.push(`/boards/${result.data.loginUser.accessToken}`);
+      console.log(result.data?.loginUser.accessToken);
+      setAccessToken(result.data?.loginUser.accessToken);
+      router.push("/boards/");
+      localStorage.setItem("accessToken", result.data?.loginUser.accessToken);
     } catch (error: any) {
       alert(error.message);
     }

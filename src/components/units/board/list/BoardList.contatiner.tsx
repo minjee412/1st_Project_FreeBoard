@@ -19,10 +19,10 @@ export default function BoardListContainer() {
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
   // ********** getDebounce **********
-  // const getDebounce = _.debounce((data) => {
-  //   refetch({ search: data, page: 1 });
-  //   setMySearch(data);
-  // }, 500);
+  const getDebounce = _.debounce((data) => {
+    refetch({ search: data, page: 1 });
+    setMySearch(data);
+  }, 500);
   // *********************************
 
   function onClickMoveToRegi() {
@@ -57,8 +57,8 @@ export default function BoardListContainer() {
 
   function onChangeSearch(event: any) {
     // refetch({ search: mySearch, page: 1 });
-    // getDebounce(event.target.value);
-    setMySearch(event.target.value);
+    getDebounce(event.target.value);
+    // setMySearch(event.target.value);
   }
 
   function onClickSearch() {
