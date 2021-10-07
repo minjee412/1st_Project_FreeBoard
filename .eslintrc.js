@@ -19,5 +19,6 @@ module.exports = {
     "spaced-comment": "off",
     camelcase: "off",
     "no-constant-condition": "off",
+    "react/display-name": "off",
   },
 };

@@ -13,6 +13,7 @@ import { createContext, useEffect, useState } from "react";
 export const GlobalContext = createContext(null);
 function MyApp({ Component, pageProps }) {
   const [accessToken, setAccessToken] = useState("");
+  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
     // localStorage.clear();
@@ -23,11 +24,13 @@ function MyApp({ Component, pageProps }) {
     // localStorage.getItem("accessToken") 있으면 저장
     // 없으면 ""
     setAccessToken(accessToken);
-  }, []);
+  }, [accessToken]);
 
   const value = {
     accessToken: accessToken,
     setAccessToken: setAccessToken,
+    userInfo: userInfo,
+    setUserInfo: setUserInfo,
   };
 
   const uploadLink = createUploadLink({

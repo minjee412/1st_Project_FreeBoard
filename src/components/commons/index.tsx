@@ -12,7 +12,7 @@ const Body = styled.div`
   flex-direction: column;
   align-items: center;
 
-  /* border:  1px solid black; */
+  /* border: 1px solid black; */
 `;
 const HIDDEN_WRAPPER = ["/Landing"];
 

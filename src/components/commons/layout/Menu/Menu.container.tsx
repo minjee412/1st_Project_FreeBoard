@@ -7,5 +7,6 @@ export default function Navi() {
   function onClickMenu(event) {
     router.push(event.target.id);
   }
+
   return <NaviUI onClickMenu={onClickMenu} />;
 }

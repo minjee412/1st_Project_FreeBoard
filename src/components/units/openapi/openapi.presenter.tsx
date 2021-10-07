@@ -1,10 +1,11 @@
+import { withAuth } from "../../commons/withAuth";
 import { CatImg, Wrapper } from "./openapi.styles";
 
 interface IOpenapiListUIProps {
   catImage: string[];
 }
 
-export default function OpenapiUI(props: IOpenapiListUIProps) {
+const OpenapiUI = (props: IOpenapiListUIProps) => {
   return (
     <Wrapper>
       <div>
@@ -17,4 +18,6 @@ export default function OpenapiUI(props: IOpenapiListUIProps) {
       </div>
     </Wrapper>
   );
-}
+};
+
+export default withAuth(OpenapiUI);

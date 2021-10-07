@@ -5,7 +5,7 @@ import LoginPagePresenter from "./login.presenter";
 import { LOGIN_USER } from "./login.query";
 import { GlobalContext } from "../../../../pages/_app";
 
-export default function LoginPageContainer(props) {
+export default function LoginPageContainer(props: any) {
   const { setAccessToken } = useContext(GlobalContext);
 
   const router = useRouter();

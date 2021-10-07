@@ -18,8 +18,9 @@ import {
 } from "./BoardList.styles";
 
 import { v4 as uuidv4 } from "uuid";
+import { withAuth } from "../../../commons/withAuth";
 
-export default function BoardListUI(props: any) {
+const BoardListUI = (props: any) => {
   return (
     <Wrapper>
       <Search_Wrapper>
@@ -48,7 +49,7 @@ export default function BoardListUI(props: any) {
             {el.title
               .replaceAll(props.mySearch, `#$%${props.mySearch}#$%`)
               .split("#$%")
-              .map((el) => (
+              .map((el: any) => (
                 <Myword key={uuidv4} isMatched={props.mySearch === el}>
                   {el}
                 </Myword>
@@ -90,4 +91,5 @@ export default function BoardListUI(props: any) {
       </Footer>
     </Wrapper>
   );
-}
+};
+export default withAuth(BoardListUI);

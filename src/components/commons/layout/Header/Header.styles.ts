@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const Wrapper = styled.div`
   height: 100px;
@@ -33,7 +34,26 @@ export const InnerLogo = styled.div`
   cursor: pointer;
 `;
 
+export const Login_Text = styled.span``;
+
+export const Button_Wrapper = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  /* border: 1px solid black; */
+`;
+
 export const InnerButton = styled.img`
+  margin: 10px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+
+  /* border: 1px solid black; */
+`;
+
+export const Logout = styled(LogoutIcon)`
   margin: 10px;
   width: 45px;
   height: 45px;

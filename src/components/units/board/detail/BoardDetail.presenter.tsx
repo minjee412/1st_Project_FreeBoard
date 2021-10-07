@@ -26,8 +26,9 @@ import {
 
 import ReactPlayer from "react-player";
 import { Tooltip } from "antd";
+import { withAuth } from "../../../commons/withAuth";
 
-export default function BoardDetailUI(props: any) {
+const BoardDetailUI = (props: any) => {
   return (
     <Wrapper>
       <CardWrapper>
@@ -89,4 +90,6 @@ export default function BoardDetailUI(props: any) {
       </BottomWrapper>
     </Wrapper>
   );
-}
+};
+
+export default withAuth(BoardDetailUI);
