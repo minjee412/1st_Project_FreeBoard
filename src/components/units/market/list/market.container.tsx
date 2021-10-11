@@ -1,8 +1,10 @@
 import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import MarketPresenter from "./market.presenter";
 import { FETCH_USED_ITEMS } from "./market.query";
 
 export default function MarketContainer() {
+  const router = useRouter();
   const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
     variables: {
       isSoldout: false,
@@ -30,12 +32,22 @@ export default function MarketContainer() {
     scrollTo(0, 0);
   }
 
+  function onClickRegProduct() {
+    router.push("/market/new_register");
+  }
+
+  function onClickRow(event: any) {
+    router.push(`/market/${event.currentTarget.id}`);
+  }
+
   return (
     <MarketPresenter
       data={data}
       fetchMore={fetchMore}
       onLoadMore={onLoadMore}
       onClickTop={onClickTop}
+      onClickRegProduct={onClickRegProduct}
+      onClickRow={onClickRow}
     />
   );
 }

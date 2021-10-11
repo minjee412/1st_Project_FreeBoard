@@ -8,7 +8,7 @@ import Landing from "./layout/Landing_Page/Landing.container";
 const Wrapper = styled.div`
   width: auto;
   margin: 0;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 
 const Body = styled.div`
@@ -18,7 +18,7 @@ const Body = styled.div`
   flex-direction: column;
   align-items: center;
 
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 const HIDDEN_WRAPPER = ["/Landing"];
 

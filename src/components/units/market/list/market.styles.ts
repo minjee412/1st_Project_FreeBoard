@@ -6,7 +6,7 @@ export const Cart = styled(ShoppingCartOutlined)``;
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
-  /* width: 100%; */
+  width: 1200px;
   margin-top: 80px;
   margin-left: 360px;
   margin-right: 118px;
@@ -22,14 +22,15 @@ export const Table_Wrapper = styled.span`
   flex-direction: column;
   margin-right: 46px;
 
+  width: 90%;
+
   /* border: 1px solid red; */
 `;
 
 export const TableTop = styled.div`
+  width: 100%;
   border-top: 2px solid gray;
   margin-top: 20px;
-
-  width: 1200px;
 
   /* border: 1px solid green; */
 `;
@@ -41,6 +42,10 @@ export const Row = styled.div`
   line-height: 52px;
   border-bottom: 1px solid gray;
   align-items: center;
+
+  :hover {
+    background-color: beige;
+  }
 `;
 
 export const ColumnHeaderImage = styled.img`
@@ -63,10 +68,10 @@ export const ColumnHeaderTitle = styled.div`
 
   /* border: 1px solid black; */
 
-  :hover {
+  /* :hover {
     background-color: #bdb9b7;
     color: #6a4f4b;
-  }
+  } */
 `;
 
 export const ProductTitle = styled.span`
@@ -130,8 +135,11 @@ export const Price = styled.span`
 export const Checked_Item_Wrapper = styled.div`
   width: 196px;
   height: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  position: fixed;
+  position: sticky;
   top: 70%;
   right: 5%;
 
