@@ -15,10 +15,12 @@ import {
   TopPage,
   Wrapper,
   MyOutlined,
+  NonImage,
 } from "./market.styles";
 
 import InfiniteScroll from "react-infinite-scroller";
 import { withAuth } from "../../../commons/withAuth";
+import TodayProduct from "./basket";
 
 const MarketPresenter = (props: any) => {
   return (
@@ -27,8 +29,14 @@ const MarketPresenter = (props: any) => {
         <Table_Wrapper>
           <TableTop />
           {props.data?.fetchUseditems.map((el: any) => (
-            <Row key={el._id} id={el._id} onClick={props.onClickRow}>
-              <ColumnHeaderImage src="/market/write/사해바다.jpeg" />
+            <Row key={el._id} id={el._id} onClick={props.onClickRow(el)}>
+              {el.images[0] ? (
+                <ColumnHeaderImage
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                />
+              ) : (
+                <NonImage></NonImage>
+              )}
               <ColumnHeaderTitle>
                 <span style={{ display: "flex", flexDirection: "column" }}>
                   <ProductTitle>{el.name}</ProductTitle>
@@ -51,11 +59,21 @@ const MarketPresenter = (props: any) => {
           ))}
         </Table_Wrapper>
         <Checked_Item_Wrapper>
+          <TopPage onClick={props.onClickRegProduct}>등록하기</TopPage>
+          <div
+            style={{
+              fontSize: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            오늘 본 상품
+          </div>
+          <TodayProduct></TodayProduct>
           <TopPage onClick={props.onClickTop}>
             <MyOutlined />
             <span>처음으로</span>
           </TopPage>
-          <TopPage onClick={props.onClickRegProduct}>등록하기</TopPage>
         </Checked_Item_Wrapper>
       </Wrapper>
     </InfiniteScroll>

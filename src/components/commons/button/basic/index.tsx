@@ -10,15 +10,15 @@ const Button = styled.button`
   color: #4f4f4f;
   cursor: pointer;
 
-  /* :hover {
+  :hover {
     background-color: beige;
-  } */
+  }
 `;
 
 export default function BasicButton(props: any) {
   const router = useRouter();
 
-  function onClickMenu(event) {
+  function onClickMenu(event: any) {
     router.push(event.target.id);
   }
 

@@ -36,9 +36,15 @@ export default function MarketContainer() {
     router.push("/market/new_register");
   }
 
-  function onClickRow(event: any) {
-    router.push(`/market/${event.currentTarget.id}`);
-  }
+  const onClickRow = (el: any) => (event: any) => {
+    const baskets = JSON.parse(sessionStorage.getItem("baskets")) || [];
+    baskets.push(el);
+
+    // console.log("담기", el);
+    sessionStorage.setItem("baskets", JSON.stringify(baskets));
+
+    // router.push(`/market/${event.currentTarget.id}`);
+  };
 
   return (
     <MarketPresenter

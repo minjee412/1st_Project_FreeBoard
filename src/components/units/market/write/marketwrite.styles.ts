@@ -6,6 +6,13 @@ import "react-quill/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
+export const TextArea = styled(ReactQuill)`
+  width: 996px;
+  height: 320px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+`;
+
 export const Wrapper = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -77,11 +84,4 @@ export const Button_Wrapper = styled.div`
   justify-content: center;
 
   margin-top: 80px;
-`;
-
-export const TextArea = styled(ReactQuill)`
-  width: 996px;
-  height: 320px;
-  margin-top: 10px;
-  margin-bottom: 40px;
 `;

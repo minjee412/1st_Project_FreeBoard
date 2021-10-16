@@ -37,6 +37,7 @@ export const FETCH_USED_ITEMS = gql`
       price
       pickedCount
       tags
+      images
     }
   }
 `;

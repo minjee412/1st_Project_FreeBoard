@@ -18,8 +18,9 @@ import {
   TitleWrapper,
   Wrapper,
 } from "./marketdetail.styles";
+import Dompurify from "dompurify";
 
-export default function MarketDetailPresenter(props) {
+export default function MarketDetailPresenter(props: any) {
   const router = useRouter();
 
   return (
@@ -52,7 +53,14 @@ export default function MarketDetailPresenter(props) {
           <Black36Font name={`${props.data?.fetchUseditem.price}원`} />
         </TitleWrapper>
         <Carousel>캐러셀</Carousel>
-        <Contents>{props.data?.fetchUseditem.contents}</Contents>
+        {/* {typeof window !== "undefined" && } 로 쓰는 곳도 있다. */}
+        {process.browser && (
+          <Contents
+            dangerouslySetInnerHTML={{
+              __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
+            }}
+          />
+        )}
         <Tags>asdfasdf</Tags>
       </PartWrapperColumn>
 

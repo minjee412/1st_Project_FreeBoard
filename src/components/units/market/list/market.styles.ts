@@ -56,6 +56,14 @@ export const ColumnHeaderImage = styled.img`
   margin-right: 40px;
 `;
 
+export const NonImage = styled.img`
+  width: 200px;
+  height: 160px;
+  text-align: center;
+  background-color: grey;
+  margin-right: 40px;
+`;
+
 export const ColumnHeaderTitle = styled.div`
   height: 100%;
   width: 70%;
@@ -134,13 +142,13 @@ export const Price = styled.span`
 
 export const Checked_Item_Wrapper = styled.div`
   width: 196px;
-  height: 330px;
+  height: 540px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   position: sticky;
-  top: 70%;
+  top: 50%;
   right: 5%;
 
   border: 1px solid #bdbdbd;
@@ -152,7 +160,7 @@ export const TopPage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: grey;
+  background-color: lightseagreen;
   color: white;
   font-size: 30px;
   cursor: pointer;

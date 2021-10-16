@@ -50,7 +50,7 @@ export default function LoginPageContainer(props: any) {
       console.log(result.data?.loginUser.accessToken);
       setAccessToken(result.data?.loginUser.accessToken);
       router.push("/boards/");
-      localStorage.setItem("accessToken", result.data?.loginUser.accessToken);
+      sessionStorage.setItem("accessToken", result.data?.loginUser.accessToken);
     } catch (error: any) {
       alert(error.message);
     }
