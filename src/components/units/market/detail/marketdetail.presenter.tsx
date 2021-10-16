@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import BasicButton from "../../../commons/button/basic";
 import WriterInfo from "../../../commons/div/writerinfo";
 import Grey18Font from "../../../commons/font_div/18px_lightgrey";
@@ -19,6 +20,8 @@ import {
 } from "./marketdetail.styles";
 
 export default function MarketDetailPresenter(props) {
+  const router = useRouter();
+
   return (
     <Wrapper>
       <PartWrapperRow>
@@ -60,6 +63,11 @@ export default function MarketDetailPresenter(props) {
       <Btn_Wrapper>
         <BasicButton name="목록으로" id="/market" />
         <BasicButton name="구매하기" />
+        {/* <button onClick={props.aaa}>수정하기</button> */}
+        <BasicButton
+          name="수정하기"
+          id={`/market/${router.query.useditemId}/edit`}
+        />
       </Btn_Wrapper>
     </Wrapper>
   );

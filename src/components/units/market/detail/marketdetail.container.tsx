@@ -10,5 +10,9 @@ export default function MarketDetailContainer() {
     variables: { useditemId: router.query.useditemId },
   });
 
+  // function aaa() {
+  //   router.push(`/market/${router.query.useditemId}/edit`);
+  // }
+
   return <MarketDetailPresenter data={data} />;
 }

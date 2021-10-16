@@ -32,7 +32,7 @@ const MarketPresenter = (props: any) => {
               <ColumnHeaderTitle>
                 <span style={{ display: "flex", flexDirection: "column" }}>
                   <ProductTitle>{el.name}</ProductTitle>
-                  <ProductDetail>{el.contents}</ProductDetail>
+                  <ProductDetail>{el.remarks}</ProductDetail>
                   <ProductTag>{el.tags}</ProductTag>
                 </span>
                 <div>

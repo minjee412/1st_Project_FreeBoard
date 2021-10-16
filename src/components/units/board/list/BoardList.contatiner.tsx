@@ -2,7 +2,11 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardListUI from "./BoardList.presenter";
-import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
+import {
+  FETCH_BOARDS,
+  FETCH_BOARDS_COUNT,
+  FETCH_BOARDS_OF_THE_BEST,
+} from "./BoardList.queries";
 import _ from "lodash";
 
 export default function BoardListContainer() {
@@ -14,8 +18,10 @@ export default function BoardListContainer() {
   });
   const router = useRouter();
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+  const { data: bestBoardData } = useQuery(FETCH_BOARDS_OF_THE_BEST);
   // data 라는 이름을 겹치지 않게 쓰기 위해 data:dataBoardsCount로 정해주면
   // 지금 부터 FETCH_BOARDS_COUNT의 data는 dataBoardsCount로 쓰면 된다
+
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
   // ********** getDebounce **********
@@ -34,6 +40,10 @@ export default function BoardListContainer() {
   // }
 
   function onClickRow(event: any) {
+    router.push(`/boards/${event.currentTarget.id}`);
+  }
+
+  function onClickBestBoard(event: any) {
     router.push(`/boards/${event.currentTarget.id}`);
   }
 
@@ -81,6 +91,8 @@ export default function BoardListContainer() {
       onChangeSearch={onChangeSearch}
       onClickSearch={onClickSearch}
       mySearch={mySearch}
+      bestBoardData={bestBoardData}
+      onClickBestBoard={onClickBestBoard}
     />
   );
 }

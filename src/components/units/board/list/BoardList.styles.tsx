@@ -7,6 +7,122 @@ export const Wrapper = styled.div`
   /* border: 1px solid black; */
 `;
 
+export const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 700;
+`;
+
+export const Top = styled.div`
+  width: 1200px;
+  height: 257px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 80px;
+`;
+
+export const BestContents = styled.div`
+  width: 282px;
+  height: 257px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  /* margin-top: 40px; */
+
+  /* background-color: red; */
+`;
+
+export const Img = styled.img`
+  border-radius: 20px 20px 0px 0px;
+  width: 100%;
+  height: 120px;
+
+  /* border: 1px solid black; */
+`;
+
+export const EmptyImg = styled.div`
+  border-radius: 20px 20px 0px 0px;
+  width: 100%;
+  height: 120px;
+  background-color: #bdbdbd;
+`;
+
+export const Info = styled.div`
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+
+  /* border: 1px solid black; */
+`;
+
+export const InfoTitle = styled.div`
+  font-size: 18px;
+  font-weight: 500px;
+
+  /* border: 1px solid black; */
+`;
+
+export const InfoBottom = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  /* border: 1px solid black; */
+`;
+
+export const InfoBottomLeft = styled.div`
+  width: 100px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* border: 1px solid black; */
+`;
+
+export const Profile = styled.div`
+  display: flex;
+
+  /* border: 1px solid black; */
+`;
+
+export const ProfileImg = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+export const ProfileName = styled.div`
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: 400;
+`;
+
+export const Date = styled.div`
+  font-size: 12px;
+  font-weight: 400;
+  color: #828282;
+`;
+
+export const Like = styled.img`
+  width: 20px;
+  height: 18px;
+  margin-bottom: 10px;
+`;
+
+export const InfoBottomRight = styled.div`
+  width: 27px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* border: 1px solid black; */
+`;
+
 export const Search_Wrapper = styled.div`
   margin-bottom: 40px;
   display: flex;

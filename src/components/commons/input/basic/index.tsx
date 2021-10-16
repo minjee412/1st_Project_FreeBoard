@@ -27,8 +27,10 @@ export default function MyInput(props: any) {
   return (
     <>
       <SubInput
+        // name={props.name}
         type={props.type}
         placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
         {...props.register}
       ></SubInput>
       {/* <Error>{props.formState}</Error> */}

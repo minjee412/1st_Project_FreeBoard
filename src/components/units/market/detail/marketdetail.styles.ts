@@ -109,12 +109,12 @@ export const Map = styled.div`
 `;
 
 export const Btn_Wrapper = styled.span`
-  width: 382px;
+  width: 550px;
   height: 52px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   margin-top: 80px;
-  margin-left: 220px;
+  margin-left: 120px;
 `;

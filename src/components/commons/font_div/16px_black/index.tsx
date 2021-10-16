@@ -8,6 +8,6 @@ const SubTitle = styled.div`
   /* border: 1px solid black; */
 `;
 
-export default function Subtitle(props) {
+export default function Subtitle(props: any) {
   return <SubTitle>{props.name}</SubTitle>;
 }

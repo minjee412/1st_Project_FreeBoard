@@ -1,4 +1,10 @@
 import styled from "@emotion/styled";
+// import ReactQuill from "react-quill"; // 프론트 서버에서 그릴 때, document가 없어서 문제가 됨 !!
+
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -71,4 +77,11 @@ export const Button_Wrapper = styled.div`
   justify-content: center;
 
   margin-top: 80px;
+`;
+
+export const TextArea = styled(ReactQuill)`
+  width: 996px;
+  height: 320px;
+  margin-top: 10px;
+  margin-bottom: 40px;
 `;

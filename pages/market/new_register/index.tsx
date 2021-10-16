@@ -1,5 +1,5 @@
-import MarketWritePresenter from "../../../src/components/units/market/write/marketwrite.container";
+import ProductWriteContainer from "../../../src/components/units/market/write/marketwrite.container";
 
 export default function ProductWrite() {
-  return <MarketWritePresenter />;
+  return <ProductWriteContainer isEdit={false} />;
 }

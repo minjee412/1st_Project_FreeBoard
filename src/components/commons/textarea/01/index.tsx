@@ -1,4 +1,10 @@
 import styled from "@emotion/styled";
+import "react-quill/dist/quill.snow.css";
+
+// import ReactQuill from "react-quill"; // 프론트엔드 서버에서 그릴 때, document가 없어서 문제가 됨
+
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 // const SubTitle = styled.span`
 //   font-size: 16px;
@@ -6,23 +12,25 @@ import styled from "@emotion/styled";
 //   margin-top: 40px;
 // `;
 
-const TextArea = styled.textarea`
-  width: 100%;
+export const TextArea = styled(ReactQuill)`
+  width: 996px;
   height: 320px;
-  font-size: 16px;
-  color: #bdbdbd;
-  margin-top: 16px;
-  /* margin-bottom: 40px; */
-  padding-top: 14px;
-  padding-left: 16px;
-  border: 1px solid #bdbdbd;
+  margin-top: 10px;
+  margin-bottom: 40px;
 `;
+export default function MyTextarea(props: any) {
+  function onChangeMyEditor(value: any) {
+    console.log(value);
+  }
 
-export default function MyTextarea(props) {
   return (
     <>
-      {/* <SubTitle>{props.name}</SubTitle> */}
-      <TextArea placeholder={props.placeholder} {...props.register}></TextArea>
+      <TextArea
+        placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
+        {...props.register}
+        onChange={onChangeMyEditor}
+      ></TextArea>
     </>
   );
 }

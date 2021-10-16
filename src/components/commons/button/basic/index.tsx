@@ -10,9 +10,9 @@ const Button = styled.button`
   color: #4f4f4f;
   cursor: pointer;
 
-  :hover {
+  /* :hover {
     background-color: beige;
-  }
+  } */
 `;
 
 export default function BasicButton(props: any) {

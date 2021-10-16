@@ -15,6 +15,21 @@ import {
   Search_Input,
   Search_Button,
   Myword,
+  Title,
+  BestContents,
+  Top,
+  Img,
+  Info,
+  InfoTitle,
+  InfoBottom,
+  InfoBottomLeft,
+  InfoBottomRight,
+  Profile,
+  ProfileImg,
+  ProfileName,
+  Date,
+  Like,
+  EmptyImg,
 } from "./BoardList.styles";
 
 import { v4 as uuidv4 } from "uuid";
@@ -23,6 +38,40 @@ import { withAuth } from "../../../commons/withAuth";
 const BoardListUI = (props: any) => {
   return (
     <Wrapper>
+      <Title>베스트 게시글</Title>
+
+      <Top>
+        {props.bestBoardData?.fetchBoardsOfTheBest.map((el: any) => (
+          <BestContents key={el.id} id={el.id} onClick={props.onClickBestBoard}>
+            {el.images[0] ? (
+              <Img src={`https://storage.googleapis.com/${el.images[0]}`} />
+            ) : (
+              <EmptyImg />
+            )}
+            <Info>
+              <InfoTitle>
+                {el.title.length > 15
+                  ? el.title.slice(0, 16) + "..."
+                  : el.title}
+              </InfoTitle>
+              <InfoBottom>
+                <InfoBottomLeft>
+                  <Profile>
+                    <ProfileImg src="/avatar.png" />
+                    <ProfileName>{el.writer}</ProfileName>
+                  </Profile>
+                  <Date>{el.createdAt.slice(0, 10)}</Date>
+                </InfoBottomLeft>
+                <InfoBottomRight>
+                  <Like src="/thumb-up.png" />
+                  <div>{el.likeCount}</div>
+                </InfoBottomRight>
+              </InfoBottom>
+            </Info>
+          </BestContents>
+        ))}
+      </Top>
+
       <Search_Wrapper>
         <Search_Input
           type="text"
@@ -31,6 +80,7 @@ const BoardListUI = (props: any) => {
         ></Search_Input>
         <Search_Button onClick={props.onClickSearch}>검색하기</Search_Button>
       </Search_Wrapper>
+
       <TableTop />
       <Row>
         <ColumnHeaderBasic>번호</ColumnHeaderBasic>
@@ -60,6 +110,7 @@ const BoardListUI = (props: any) => {
         </Row>
       ))}
       <TableBottom />
+
       <Footer>
         <Pagenation>
           <Page onClick={props.onClickPrevPage}> 이전 </Page>
