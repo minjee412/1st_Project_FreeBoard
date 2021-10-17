@@ -1,16 +1,23 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import MarketPresenter from "./market.presenter";
 import { FETCH_USED_ITEMS } from "./market.query";
 
 export default function MarketContainer() {
   const router = useRouter();
+  const [basketItems, setBasketItems] = useState([]);
   const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
     variables: {
       isSoldout: false,
       page: 1,
     },
   });
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("baskets")) || [];
+    setBasketItems(items);
+  }, []);
 
   function onLoadMore() {
     if (!data) return;
@@ -37,14 +44,21 @@ export default function MarketContainer() {
   }
 
   const onClickRow = (el: any) => (event: any) => {
-    const baskets = JSON.parse(sessionStorage.getItem("baskets")) || [];
-    baskets.push(el);
+    const baskets = JSON.parse(localStorage.getItem("baskets")) || [];
+
+    const newEl = { ...el };
+    delete newEl.__typename;
+    baskets.push(newEl);
 
     // console.log("담기", el);
-    sessionStorage.setItem("baskets", JSON.stringify(baskets));
+    localStorage.setItem("baskets", JSON.stringify(baskets));
 
-    // router.push(`/market/${event.currentTarget.id}`);
+    router.push(`/market/${event.currentTarget.id}`);
   };
+
+  function onClickMoveToTodayView(event: any) {
+    router.push(`/market/${event.currentTarget.id}`);
+  }
 
   return (
     <MarketPresenter
@@ -54,6 +68,8 @@ export default function MarketContainer() {
       onClickTop={onClickTop}
       onClickRegProduct={onClickRegProduct}
       onClickRow={onClickRow}
+      basketItems={basketItems}
+      onClickMoveToTodayView={onClickMoveToTodayView}
     />
   );
 }

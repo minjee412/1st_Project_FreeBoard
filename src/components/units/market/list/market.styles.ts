@@ -165,3 +165,90 @@ export const TopPage = styled.div`
   font-size: 30px;
   cursor: pointer;
 `;
+
+export const TodayProductWrapper = styled.div`
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+
+  border: 1px dotted #bdbdbd;
+`;
+
+export const TodayProductLike = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  border: 1px solid blue;
+`;
+
+export const Heart = styled.img`
+  width: 15px;
+  height: 14px;
+  margin-right: 6px;
+
+  border: 1px solid black;
+`;
+
+export const ProductImg = styled.img`
+  width: 60px;
+  height: 60px;
+
+  margin-bottom: 12px;
+
+  /* border: 1px solid blue; */
+`;
+
+export const EmptyImage = styled.img`
+  width: 60px;
+  height: 60px;
+
+  margin-bottom: 12px;
+  background-color: grey;
+  /* border: 1px solid blue; */
+`;
+
+export const InfoWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  /* border: 1px solid bla  ck; */
+`;
+
+export const SideProductTitle = styled.div`
+  font-weight: 500;
+  font-size: 15px;
+  font-weight: bold;
+
+  /* border: 1px solid black; */
+`;
+
+export const ProductRemarks = styled.div`
+  font-weight: 500;
+  font-size: 12px;
+  color: #4f4f4f;
+`;
+
+export const ProductPrice = styled.div`
+  font-size: 16px;
+  font-style: italic;
+  color: blue;
+`;
+
+export const SideProductTag = styled.div`
+  width: 100%;
+  height: 20px;
+  font-weight: 500;
+  font-size: 12px;
+  color: red;
+
+  /* border: 1px solid black; */
+`;

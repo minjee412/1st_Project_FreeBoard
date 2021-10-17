@@ -10,7 +10,7 @@ export const withAuth = (Component: any) => (props: any) => {
   //accessToken이 있는가 ?!
   //accessToken이 없다면, login 페이지로 보내기 !
   useEffect(() => {
-    const accessItem = sessionStorage.getItem("accessToken");
+    const accessItem = localStorage.getItem("accessToken");
     if (!accessItem) {
       alert("로그인 한 사람만 입장 가능 합니다.");
       router.push("/login");

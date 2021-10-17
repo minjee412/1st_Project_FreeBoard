@@ -16,11 +16,21 @@ import {
   Wrapper,
   MyOutlined,
   NonImage,
+  TodayProductWrapper,
+  TodayProductLike,
+  Heart,
+  ProductImg,
+  InfoWrapper,
+  ProductRemarks,
+  ProductPrice,
+  EmptyImage,
+  SideProductTitle,
+  SideProductTag,
 } from "./market.styles";
 
 import InfiniteScroll from "react-infinite-scroller";
 import { withAuth } from "../../../commons/withAuth";
-import TodayProduct from "./basket";
+// import TodayProduct from "./basket";
 
 const MarketPresenter = (props: any) => {
   return (
@@ -69,7 +79,73 @@ const MarketPresenter = (props: any) => {
           >
             오늘 본 상품
           </div>
-          <TodayProduct></TodayProduct>
+          {props.baketItems?.length > 2
+            ? props.basketItems
+                .slice(props.basketItems?.length - 2, props.basketItems?.length)
+                .map((el: any) => (
+                  <TodayProductWrapper
+                    key={el._id}
+                    id={el._id}
+                    onClick={props.onClickMoveToTodayView}
+                  >
+                    <TodayProductLike>
+                      <Heart src="/하트.png" />
+                      <span>{el.pickedCount}</span>
+                    </TodayProductLike>
+
+                    {el.images.length ? (
+                      <ProductImg
+                        src={`https://storage.googleapis.com/${el.images[0]}`}
+                      />
+                    ) : (
+                      <EmptyImage />
+                    )}
+                    <InfoWrapper>
+                      <div>
+                        <SideProductTitle>{el.name}</SideProductTitle>
+                        <ProductRemarks>{el.remarks}</ProductRemarks>
+                      </div>
+                      <div style={{ marginTop: "4px", marginBottom: "8px" }}>
+                        <ProductPrice>
+                          {el.price.toLocaleString()}원
+                        </ProductPrice>
+                      </div>
+                      <SideProductTag>
+                        {el.tags[0]},{el.tags[1]},{el.tags[2]}
+                      </SideProductTag>
+                    </InfoWrapper>
+                  </TodayProductWrapper>
+                ))
+            : props.basketItems
+                .slice(props.basketItems?.length - 2, props.basketItems?.length)
+                .map((el: any) => (
+                  <TodayProductWrapper
+                    key={el._id}
+                    id={el._id}
+                    onClick={props.onClickMoveToTodayView}
+                  >
+                    {el.images.length ? (
+                      <ProductImg
+                        src={`https://storage.googleapis.com/${el.images[0]}`}
+                      />
+                    ) : (
+                      <EmptyImage />
+                    )}
+                    <InfoWrapper>
+                      <div>
+                        <SideProductTitle>{el.name}</SideProductTitle>
+                        <ProductRemarks>{el.remarks}</ProductRemarks>
+                      </div>
+                      <div style={{ marginTop: "4px", marginBottom: "8px" }}>
+                        <ProductPrice>
+                          {el.price.toLocaleString()}원
+                        </ProductPrice>
+                      </div>
+                      <SideProductTag>{el.tags[0]}</SideProductTag>
+                    </InfoWrapper>
+                  </TodayProductWrapper>
+                ))
+                .reverse()}
           <TopPage onClick={props.onClickTop}>
             <MyOutlined />
             <span>처음으로</span>
