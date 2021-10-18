@@ -52,20 +52,45 @@ export default function MarketDetailPresenter(props: any) {
         <TitleWrapper>
           <Black36Font name={`${props.data?.fetchUseditem.price}원`} />
         </TitleWrapper>
-        <Carousel>캐러셀</Carousel>
+        {props.data?.fetchUseditem.images.map((el: any, idx: any) => (
+          <Carousel
+            key={idx}
+            src={`https://storage.googleapis.com/${el}`}
+          ></Carousel>
+        ))}
         {/* {typeof window !== "undefined" && } 로 쓰는 곳도 있다. */}
-        {process.browser && (
-          <Contents
-            dangerouslySetInnerHTML={{
-              __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
-            }}
-          />
-        )}
-        <Tags>asdfasdf</Tags>
+
+        <div style={{ marginTop: "80px" }}>
+          <div style={{ marginBottom: "10px", fontSize: "16px" }}>Contents</div>
+          {process.browser && (
+            <Contents
+              dangerouslySetInnerHTML={{
+                __html: Dompurify.sanitize(props.data?.fetchUseditem.contents),
+              }}
+            ></Contents>
+          )}
+        </div>
+
+        <Tags>
+          <span style={{ color: "black", marginBottom: "10px" }}>Tag</span>
+          <>
+            {props.data?.fetchUseditem.tags[0] === ""
+              ? ""
+              : `#${props.data?.fetchUseditem.tags[0]}`}
+
+            {props.data?.fetchUseditem.tags[1] === ""
+              ? `${props.data?.fetchUseditem.tags[1]}`
+              : `#${props.data?.fetchUseditem.tags[1]}`}
+
+            {props.data?.fetchUseditem.tags[2] === ""
+              ? ""
+              : `# ${props.data?.fetchUseditem.tags[2]}`}
+          </>
+        </Tags>
       </PartWrapperColumn>
 
       <PartWrapperColumn>
-        <Map>지도</Map>
+        <Map id="map">지도</Map>
       </PartWrapperColumn>
 
       <Btn_Wrapper>

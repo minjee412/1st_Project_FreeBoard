@@ -124,6 +124,10 @@ const MarketPresenter = (props: any) => {
                     id={el._id}
                     onClick={props.onClickMoveToTodayView}
                   >
+                    <TodayProductLike>
+                      <Heart src="/하트.png" />
+                      <span>{el.pickedCount}</span>
+                    </TodayProductLike>
                     {el.images.length ? (
                       <ProductImg
                         src={`https://storage.googleapis.com/${el.images[0]}`}

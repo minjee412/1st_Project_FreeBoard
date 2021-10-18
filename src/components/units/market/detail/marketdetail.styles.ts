@@ -75,7 +75,7 @@ export const LikeWrapper = styled.span`
   /* border: 1px solid green; */
 `;
 
-export const Carousel = styled.div`
+export const Carousel = styled.img`
   width: 504px;
   height: 482px;
   display: flex;
@@ -87,17 +87,23 @@ export const Carousel = styled.div`
 export const Contents = styled.div`
   width: 792px;
   height: 108px;
-  margin-top: 80px;
+  /* margin-top: 80px; */
   font-size: 18px;
-  border: 1px solid pink;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #bdbdbd;
 `;
 
 export const Tags = styled.div`
   font-size: 16px;
   color: #bdbdbd;
   margin-top: 40px;
+  width: 100%;
 
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+
+  /* border: 1px solid black; */
 `;
 
 export const Map = styled.div`

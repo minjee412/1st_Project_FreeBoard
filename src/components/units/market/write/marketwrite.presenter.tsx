@@ -10,7 +10,7 @@ import {
   Row,
   TextArea,
 } from "./marketwrite.styles";
-import TradePlace from "../../../commons/div/place_img";
+// import TradePlace from "../../../commons/div/place_img";
 import GPS01 from "../../../commons/input/gps";
 import Address from "../../../commons/input/address";
 import Subtitle from "../../../commons/font_div/16px_black";
@@ -20,6 +20,7 @@ import BasicButton from "../../../commons/button/basic";
 import { withAuth } from "../../../commons/withAuth";
 import ErrorMsg from "../../../commons/errormsg/01";
 import { useRouter } from "next/router";
+// import Head from "next/head";
 
 const MarketWritePresenter = (props: any) => {
   const router = useRouter();
@@ -93,13 +94,21 @@ const MarketWritePresenter = (props: any) => {
               type="text"
               // {...props.register("tags")}
               placeholder="#태그 #태그 #태그"
+              register={props.register("tags")}
             />
           </Row>
 
           <PlaceWrapper>
             <TradePlaceWrapper>
               <Subtitle name="거래위치" />
-              <TradePlace />
+              <div
+                id="map"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: "1px solid black",
+                }}
+              ></div>
             </TradePlaceWrapper>
             <DetailPlace>
               <span
@@ -108,8 +117,8 @@ const MarketWritePresenter = (props: any) => {
                 <Subtitle name="GPS" />
                 <GPS01
                   type="text"
-                  placeholder="위도(LAT)"
-                  placeholder1="경도(LNG)"
+                  placeholder={props.Lat ? Math.ceil(props.Lat) : "위도(LAT)"}
+                  placeholder1={props.Lng ? Math.ceil(props.Lng) : "경도(LNG)"}
                 />
               </span>
               <span

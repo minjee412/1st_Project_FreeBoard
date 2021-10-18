@@ -148,8 +148,8 @@ export const Checked_Item_Wrapper = styled.div`
   justify-content: space-between;
 
   position: sticky;
-  top: 50%;
-  right: 5%;
+  top: 10%;
+  right: 3%;
 
   border: 1px solid #bdbdbd;
 `;
@@ -168,7 +168,7 @@ export const TopPage = styled.div`
 
 export const TodayProductWrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: 190px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -187,7 +187,7 @@ export const TodayProductLike = styled.div`
   justify-content: right;
   align-items: center;
 
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 `;
 
 export const Heart = styled.img`
@@ -195,7 +195,7 @@ export const Heart = styled.img`
   height: 14px;
   margin-right: 6px;
 
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 
 export const ProductImg = styled.img`
