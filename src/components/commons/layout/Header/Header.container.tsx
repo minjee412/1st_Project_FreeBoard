@@ -7,7 +7,7 @@ import { FETCH_USER_LOGGED_IN } from "./Header.query";
 
 export default function Header() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  const { setAccessToken } = useContext(GlobalContext);
+  const { accessToken, setAccessToken } = useContext(GlobalContext);
 
   const router = useRouter();
 
@@ -24,8 +24,9 @@ export default function Header() {
   }
 
   function onClickLogout() {
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("accessToken");
-    setAccessToken("");
+    setAccessToken(" ");
   }
 
   return (

@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./marketwrite.validation";
-import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./marketwrite.query";
+import {
+  CREATE_USED_ITEM,
+  UPDATE_USED_ITEM,
+  UPLOAD_FILE,
+} from "./marketwrite.query";
 import { FETCH_USED_ITEM } from "../detail/marketdetail.query";
 import { useEffect, useState } from "react";
 
@@ -20,9 +24,18 @@ export default function ProductWriteContainer(props: any) {
   });
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
 
   const [Lat, setLat] = useState("");
   const [Lng, setLng] = useState("");
+
+  const [images, setImages] = useState(["", "", ""]);
+
+  const setImageFunc = (url: any, index: any) => {
+    const aaa = [...images];
+    aaa[index] = url;
+    setImages(aaa);
+  };
 
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
@@ -39,8 +52,15 @@ export default function ProductWriteContainer(props: any) {
   }
 
   async function onClickSubmit(data: any) {
-    // console.log({ ...data });
+    console.log(data);
     try {
+      ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
+      const uploadFiles = images // [File1, File2, ""]
+        .filter((el) => el) // [File1, File2]
+        .map((el) => uploadFile({ variables: { file: el } })); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ]
+      const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ])
+      const myImages = results.map((el) => el?.data.uploadFile.url || ""); // ["강아지이미지.png", "고양이이미지.png"]
+      ///////////////////////////////////////////////////////////////////////////////////////////
       const result = await createUseditem({
         variables: {
           createUseditemInput: {
@@ -49,7 +69,7 @@ export default function ProductWriteContainer(props: any) {
             contents: data.contents,
             price: Number(data.price),
             tags: data.tags,
-            images: data.images,
+            images: myImages,
             useditemAddress: {
               lat: Lat,
               lng: Lng,
@@ -59,7 +79,7 @@ export default function ProductWriteContainer(props: any) {
       });
       alert("상품을 등록합니다");
       // console.log(data.createUseditem.tags);
-      // console.log(result.data.createUseditem.tags);
+      console.log(result.data.createUseditem);
       router.push(`/market/${result.data?.createUseditem._id}`);
     } catch (err: any) {
       alert(err.message);
@@ -144,10 +164,10 @@ export default function ProductWriteContainer(props: any) {
           function (mouseEvent: { latLng: any }) {
             // 클릭한 위도, 경도 정보를 가져옵니다
             const latlng = mouseEvent.latLng;
-            console.log(latlng);
+            // console.log(latlng);
             setLat(latlng.La);
             setLng(latlng.Ma);
-            console.log(latlng.La);
+            // console.log(latlng.La);
             // 마커 위치를 클릭한 위치로 옮깁니다
             marker.setPosition(latlng);
 
@@ -174,6 +194,8 @@ export default function ProductWriteContainer(props: any) {
       onChangeContents={onChangeContents}
       Lat={Lat}
       Lng={Lng}
+      setImageFunc={setImageFunc}
+      setImages={setImages}
     />
   );
 }

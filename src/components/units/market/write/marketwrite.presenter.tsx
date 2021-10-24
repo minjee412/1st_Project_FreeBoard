@@ -136,9 +136,15 @@ const MarketWritePresenter = (props: any) => {
           <Menu_Wrapper>
             <Subtitle name="사진첨부" />
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <PlaceUpload />
-              <PlaceUpload />
-              <PlaceUpload />
+              {new Array(3).fill(1).map((el, index) => (
+                <PlaceUpload
+                  register={props.register("images")}
+                  key={`${el}_${index}`}
+                  index={index}
+                  setImageFunc={props.setImageFunc}
+                  setImages={props.setImages}
+                />
+              ))}
             </div>
           </Menu_Wrapper>
 

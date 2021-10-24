@@ -1,11 +1,12 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import MarketDetailPresenter from "./marketdetail.presenter";
-import { FETCH_USED_ITEM } from "./marketdetail.query";
+import { FETCH_USED_ITEM, DELETE_USED_ITEM } from "./marketdetail.query";
 
 export default function MarketDetailContainer() {
   const router = useRouter();
+  const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
 
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
@@ -14,6 +15,18 @@ export default function MarketDetailContainer() {
   // function aaa() {
   //   router.push(`/market/${router.query.useditemId}/edit`);
   // }
+
+  function onClickDelete() {
+    try {
+      deleteUseditem({
+        variables: { useditemId: router.query.useditemId },
+      });
+      alert("삭제 되었습니다.");
+      router.push("/market");
+    } catch (error) {
+      alert("권한이 없습니다.");
+    }
+  }
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -69,5 +82,5 @@ export default function MarketDetailContainer() {
       });
     };
   });
-  return <MarketDetailPresenter data={data} />;
+  return <MarketDetailPresenter data={data} onClickDelete={onClickDelete} />;
 }

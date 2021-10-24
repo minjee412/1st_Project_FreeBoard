@@ -19,6 +19,7 @@ import {
   Wrapper,
 } from "./marketdetail.styles";
 import Dompurify from "dompurify";
+import { DeleteOutlined } from "@ant-design/icons";
 
 export default function MarketDetailPresenter(props: any) {
   const router = useRouter();
@@ -30,9 +31,25 @@ export default function MarketDetailPresenter(props: any) {
           name={props.data?.fetchUseditem.seller.name}
           date={`Date: ${props.data?.fetchUseditem.createdAt.slice(0, 10)}`}
         />
-        <span>
+        <span
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100px",
+          }}
+        >
           <Img src="/board/detail/link.png" />
           <Img src="/board/detail/location.png" />
+          <DeleteOutlined
+            style={{
+              fontSize: "22px",
+              color: "red",
+              fontWeight: "bold",
+            }}
+            onClick={props.onClickDelete}
+          />
         </span>
       </PartWrapperRow>
 
