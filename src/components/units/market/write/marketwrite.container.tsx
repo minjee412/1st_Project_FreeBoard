@@ -7,10 +7,14 @@ import { schema } from "./marketwrite.validation";
 import {
   CREATE_USED_ITEM,
   UPDATE_USED_ITEM,
-  UPLOAD_FILE,
+  //UPLOAD_FILE, //이미지 2차
 } from "./marketwrite.query";
 import { FETCH_USED_ITEM } from "../detail/marketdetail.query";
 import { useEffect, useState } from "react";
+
+/////////////// 이미지 2차 (필요 없을 때, 삭제하기) /////////////////////////////////////////////
+// import { UPLOAD_FILE } from "../../../commons/div/upload_img/index";
+//////////////////////////////////////////////////////////////////////
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -24,7 +28,10 @@ export default function ProductWriteContainer(props: any) {
   });
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
-  const [uploadFile] = useMutation(UPLOAD_FILE);
+
+  /////////////// 이미지 2차 //////////////////////
+  // const [uploadFile] = useMutation(UPLOAD_FILE);
+  //////////////////////////////////////////////
 
   const [Lat, setLat] = useState("");
   const [Lng, setLng] = useState("");
@@ -54,13 +61,13 @@ export default function ProductWriteContainer(props: any) {
   async function onClickSubmit(data: any) {
     console.log(data);
     try {
-      ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
-      const uploadFiles = images // [File1, File2, ""]
-        .filter((el) => el) // [File1, File2]
-        .map((el) => uploadFile({ variables: { file: el } })); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ]
-      const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ])
-      const myImages = results.map((el) => el?.data.uploadFile.url || ""); // ["강아지이미지.png", "고양이이미지.png"]
-      ///////////////////////////////////////////////////////////////////////////////////////////
+      // ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
+      // const uploadFiles = images // [File1, File2, ""]
+      //   .filter((el) => el) // [File1, File2]
+      //   .map((el) => uploadFile({ variables: { file: el } })); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ]
+      // const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ])
+      // const myImages = results.map((el) => el?.data.uploadFile.url || ""); // ["강아지이미지.png", "고양이이미지.png"]
+      // ///////////////////////////////////////////////////////////////////////////////////////////
       const result = await createUseditem({
         variables: {
           createUseditemInput: {
@@ -69,7 +76,7 @@ export default function ProductWriteContainer(props: any) {
             contents: data.contents,
             price: Number(data.price),
             tags: data.tags,
-            images: myImages,
+            images: images,
             useditemAddress: {
               lat: Lat,
               lng: Lng,

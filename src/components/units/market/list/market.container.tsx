@@ -6,13 +6,22 @@ import { FETCH_USED_ITEMS } from "./market.query";
 
 export default function MarketContainer() {
   const router = useRouter();
+  const [isSoldout, setIsSoldout] = useState(false);
   const [basketItems, setBasketItems] = useState([]);
   const { data, fetchMore } = useQuery(FETCH_USED_ITEMS, {
     variables: {
-      isSoldout: false,
+      isSoldout: isSoldout,
       page: 1,
     },
   });
+
+  function onClickSoldout() {
+    setIsSoldout(true);
+  }
+
+  function onClickNotSoldout() {
+    setIsSoldout(false);
+  }
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("baskets")) || [];
@@ -70,6 +79,9 @@ export default function MarketContainer() {
       onClickRow={onClickRow}
       basketItems={basketItems}
       onClickMoveToTodayView={onClickMoveToTodayView}
+      onClickSoldout={onClickSoldout}
+      onClickNotSoldout={onClickNotSoldout}
+      isSoldout={isSoldout}
     />
   );
 }

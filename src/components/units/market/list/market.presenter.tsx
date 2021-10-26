@@ -26,6 +26,7 @@ import {
   EmptyImage,
   SideProductTitle,
   SideProductTag,
+  Soldout,
 } from "./market.styles";
 
 import InfiniteScroll from "react-infinite-scroller";
@@ -37,6 +38,17 @@ const MarketPresenter = (props: any) => {
     <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
       <Wrapper>
         <Table_Wrapper>
+          <div>
+            <Soldout onClick={props.onClickSoldout} isSoldout={props.isSoldout}>
+              Soldout
+            </Soldout>
+            <Soldout
+              onClick={props.onClickNotSoldout}
+              isSoldout={!props.isSoldout}
+            >
+              Sell
+            </Soldout>
+          </div>
           <TableTop />
           {props.data?.fetchUseditems.map((el: any) => (
             <Row key={el._id} id={el._id} onClick={props.onClickRow(el)}>

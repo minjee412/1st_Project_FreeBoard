@@ -252,3 +252,15 @@ export const SideProductTag = styled.div`
 
   /* border: 1px solid black; */
 `;
+
+interface IProps {
+  isSoldout: boolean;
+}
+
+export const Soldout = styled.span`
+  margin-right: 32px;
+  font-size: 32px;
+  cursor: pointer;
+  border-bottom: ${(props: IProps) =>
+    props.isSoldout ? "4px dotted red" : ""};
+`;
