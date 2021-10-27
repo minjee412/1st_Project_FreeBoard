@@ -62,7 +62,7 @@ export default function MarketDetailPresenter(props: any) {
             <Black24Font name={props.data?.fetchUseditem.name} />
           </span>
           <LikeWrapper>
-            <Image30x28 src="/하트.png" />
+            <Image30x28 src="/하트.png" onClick={props.onClickLike} />
             <span>{props.data?.fetchUseditem.pickedCount}</span>
           </LikeWrapper>
         </TitleWrapper>

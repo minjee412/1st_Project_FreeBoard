@@ -1,3 +1,4 @@
+import ProductCommentWrite from "./MarketComment_container";
 import {
   CommentButton,
   CommentContents,
@@ -15,10 +16,12 @@ export default function ProductCommentUI(props: any) {
     <Wrapper>
       <Line />
       <CommentWrapper>
-        <CommentTitle>
-          <CommentIcon src="/boardcomment/write/pencil.png" />
-          <div>문의하기</div>
-        </CommentTitle>
+        {!props.isEdit && (
+          <CommentTitle>
+            <CommentIcon src="/boardcomment/write/pencil.png" />
+            <div>문의하기</div>
+          </CommentTitle>
+        )}
 
         <ContentsInputBox>
           <CommentContents
@@ -28,8 +31,13 @@ export default function ProductCommentUI(props: any) {
           />
           <CommentLengthCheckBox>
             <div>{props.contents.length}/100</div>
-            <CommentButton onClick={props.onClickQuestion}>
-              문의하기
+            <CommentButton
+              id={props.el?._id}
+              onClick={
+                props.isEdit ? props.onClickUpdate : props.onClickQuestion
+              }
+            >
+              {props.isEdit ? "수정하기" : "문의하기"}
             </CommentButton>
           </CommentLengthCheckBox>
         </ContentsInputBox>

@@ -20,6 +20,10 @@ export default function HeaderUI(props: any) {
                 <span style={{ color: "blue" }}>
                   ⭐️ {props.data?.fetchUserLoggedIn.name}님 환영 합니다. ⭐️
                 </span>
+                <span style={{ marginLeft: "40px" }}>잔여 포인트:</span>
+                <span style={{ marginLeft: "10px", color: "red" }}>
+                  {props.data?.fetchUserLoggedIn.userPoint.amount} P
+                </span>
 
                 <InnerButton src="/avatar.png" />
                 <Logout onClick={props.onClickLogout} />

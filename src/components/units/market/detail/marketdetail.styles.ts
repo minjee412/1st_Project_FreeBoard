@@ -54,6 +54,7 @@ export const Img = styled.img`
 export const Image30x28 = styled.img`
   width: 30px;
   height: 28px;
+  cursor: pointer;
 `;
 
 export const TitleWrapper = styled.div`
