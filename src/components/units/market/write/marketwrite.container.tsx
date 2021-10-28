@@ -7,14 +7,10 @@ import { schema } from "./marketwrite.validation";
 import {
   CREATE_USED_ITEM,
   UPDATE_USED_ITEM,
-  //UPLOAD_FILE, //이미지 2차
+  UPLOAD_FILE, //이미지 2차
 } from "./marketwrite.query";
 import { FETCH_USED_ITEM } from "../detail/marketdetail.query";
 import { useEffect, useState } from "react";
-
-/////////////// 이미지 2차 (필요 없을 때, 삭제하기) /////////////////////////////////////////////
-// import { UPLOAD_FILE } from "../../../commons/div/upload_img/index";
-//////////////////////////////////////////////////////////////////////
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -30,17 +26,17 @@ export default function ProductWriteContainer(props: any) {
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 
   /////////////// 이미지 2차 //////////////////////
-  // const [uploadFile] = useMutation(UPLOAD_FILE);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
   //////////////////////////////////////////////
 
   const [Lat, setLat] = useState("");
   const [Lng, setLng] = useState("");
 
-  const [images, setImages] = useState(["", "", ""]);
+  const [images, setImages] = useState([null, null, null]);
 
-  const setImageFunc = (url: any, index: any) => {
+  const setImageFunc = (file: any, index: any) => {
     const aaa = [...images];
-    aaa[index] = url;
+    aaa[index] = file;
     setImages(aaa);
   };
 
@@ -59,10 +55,85 @@ export default function ProductWriteContainer(props: any) {
   }
 
   async function onClickSubmit(data: any) {
-    console.log(data);
+    console.log("data", data);
     try {
+      // images; // [null, File, null]
+
+      // 2-1 ///////////////////////////////////////////
+      // const newImages = ["", "", ""];
+      // if (images[0]) {
+      //   const result = await uploadFile({
+      //     variables: {
+      //       file: images[0],
+      //     },
+      //   });
+      //   newImages[0] = result.data.uploadFiile.url;
+      // }
+
+      // if (images[1]) {
+      //   const result = await uploadFile({
+      //     variables: {
+      //       file: images[1],
+      //     },
+      //   });
+      //   newImages[1] = result.data.uploadFiile.url;
+      // }
+
+      // if (images[2]) {
+      //   const result = await uploadFile({
+      //     variables: {
+      //       file: images[2],
+      //     },
+      //   });
+      //   newImages[2] = result.data.uploadFiile.url;
+      // }
+      // //////////////////////////////////////////////////////
+
+      // // 2-2 //////////////////////////////////////////////
+      // images.map(async (el, index) => {
+      //   if (el) {
+      //     const result = await uploadFile({
+      //       variables: {
+      //         file: el,
+      //       },
+      //     });
+      //     newImages[index] = result.data.uploadFiile.url;
+      //   }
+      // });
+      // /////////////////////////////////////////////////////
+
+      // // 2-3 //////////////////////////////////////////////
+      // const results = await Promise.all([
+      //   uploadFile({ variables: { file: images[0] } }), uploadFile({ variables: { file: images[1] } }), uploadFile({ variables: { file: images[2] } })
+      // ]); // [result, result, result] => [result1.data.uploadFile.url, result2.data.uploadFile.url, result3.data.uploadFile.url]
+      // /////////////////////////////////////////////////////
+
+      // // 2-4 //////////////////////////////////////////////
+      // const results = await Promise.all([
+      //   uploadFile({ variables: { file: images[0] } }), uploadFile({ variables: { file: images[1] } }), uploadFile({ variables: { file: images[2] } })
+      // ]); // [result, result, result] => [result1.data.uploadFile.url, result2.data.uploadFile.url, result3.data.uploadFile.url]
+      // /////////////////////////////////////////////////////
+
+      // // 2-5의 설명 /////////////////////////////////////////
+      // // images // [null, myFile, null]
+      // images.map((el) => uploadFile({variables: {file: el}})) // [uploadFile({variables: {file: null}}, uploadFile({variables: {file: myFile}}, uploadFile({variables: {file: null}}]
+      // /////////////////////////////////////////////////////
+
+      // 2-5 //////////////////////////////////////////////
+      const results = await Promise.all(
+        images.map((el: any) =>
+          el ? uploadFile({ variables: { file: el } }) : null
+        )
+      ); // [null, result, null]
+
+      const newImages = results.map((el) => (el ? el.data.uploadFile.url : ""));
+
+      // ["", "https://googleapis.com/~~", ""]
+      /////////////////////////////////////////////////////
+
       // ////////////////////////////////////////// 이미지 2차 실습 ///////////////////////////////////
       // const uploadFiles = images // [File1, File2, ""]
+      //필터 정렬 (좌측정렬 : 없으묜 빠지기때문에)
       //   .filter((el) => el) // [File1, File2]
       //   .map((el) => uploadFile({ variables: { file: el } })); // [ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ]
       // const results = await Promise.all(uploadFiles); // await Promise.all([ uploadFile({ variables: { file: File1 } }), uploadFile({ variables: { file: File2 } }) ])
@@ -76,7 +147,7 @@ export default function ProductWriteContainer(props: any) {
             contents: data.contents,
             price: Number(data.price),
             tags: data.tags,
-            images: images,
+            images: newImages,
             useditemAddress: {
               lat: Lat,
               lng: Lng,
@@ -88,6 +159,7 @@ export default function ProductWriteContainer(props: any) {
       // console.log(data.createUseditem.tags);
       console.log(result.data.createUseditem);
       router.push(`/market/${result.data?.createUseditem._id}`);
+      // console.log(result);
     } catch (err: any) {
       alert(err.message);
     }

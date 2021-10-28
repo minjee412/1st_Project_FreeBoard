@@ -1,5 +1,5 @@
 ///////////////////// 이미지 1차 /////////////////////
-import { useMutation, gql } from "@apollo/client";
+// import { useMutation, gql } from "@apollo/client";
 ///////////////////////////////////////////////////
 
 import styled from "@emotion/styled";
@@ -24,21 +24,21 @@ const Font = styled.span`
   font-size: 16px;
 `;
 
-///////////// 이미지 1차 /////////////////////
-export const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      url
-    }
-  }
-`;
+// ///////////// 이미지 1차 /////////////////////
+// export const UPLOAD_FILE = gql`
+//   mutation uploadFile($file: Upload!) {
+//     uploadFile(file: $file) {
+//       url
+//     }
+//   }
+// `;
 //////////////////////////////////////////
 
 export default function PlaceUpload(props: any) {
   const [imageUrl, setImageUrl] = useState("");
 
   ///////////////////// 이미지 1차 /////////////////////
-  const [uploadFile] = useMutation(UPLOAD_FILE);
+  // const [uploadFile] = useMutation(UPLOAD_FILE);
   ///////////////////////////////////////////////////
 
   const fileRef = useRef<HTMLInputElement>();
@@ -61,32 +61,34 @@ export default function PlaceUpload(props: any) {
 
     // console.log(myFile);
 
-    try {
-      const result = await uploadFile({
-        variables: {
-          file: myFile,
-        },
-      });
-      console.log(result.data.uploadFile.url);
-      setImageUrl(result.data.uploadFile.url);
-      props.setImageFunc(result.data.uploadFile.url, props.index);
-    } catch (error) {
-      alert("error.message");
-    }
+    /////// 이미지 1차 ////////////////////////////////////////////
+    // try {
+    //   const result = await uploadFile({
+    //     variables: {
+    //       file: myFile,
+    //     },
+    //   });
+    //   console.log(result.data.uploadFile.url);
+    //   setImageUrl(result.data.uploadFile.url);
+    //   props.setImageFunc(result.data.uploadFile.url, props.index);
+    // } catch (error) {
+    //   alert("error.message");
+    // }
+    /////////////////////////////////////////////////////////////
 
     ////////////////////// 이미지 2차 ////////////////////////////////
-    // try {
-    //   const fileReader = await new FileReader();
-    //   fileReader.readAsDataURL(myFile);
-    //   fileReader.onload = (data: any) => {
-    //     setImageUrl(data.target.result);
-    //     console.log(data.target.result);
-    //     // props.setImages(myFile);
-    //     props.setImageFunc(data.uploadFile?.result, props.index);
-    //   };
-    // } catch (error: any) {
-    //   console.log(error.message);
-    // }
+    try {
+      const fileReader = await new FileReader();
+      fileReader.readAsDataURL(myFile);
+      fileReader.onload = (data: any) => {
+        setImageUrl(data.target.result);
+        console.log(data.target.result);
+        // props.setImageFunc(data.uploadFile?.result, props.index);
+        props.setImageFunc(myFile, props.index);
+      };
+    } catch (error: any) {
+      console.log(error.message);
+    }
     ///////////////////////////////////////////////////////////////
   }
 
@@ -98,8 +100,8 @@ export default function PlaceUpload(props: any) {
     <>
       {imageUrl ? (
         <img
-          src={`https://storage.googleapis.com/${imageUrl}`} // 이미지 1차
-          // src={imageUrl}
+          // src={`https://storage.googleapis.com/${imageUrl}`} // 이미지 1차
+          src={imageUrl}
           style={{ width: "180px", height: "180px", marginRight: "24px" }}
         />
       ) : (

@@ -23,11 +23,11 @@ export const UPDATE_USED_ITEM = gql`
 `;
 
 ///////////////////// 이미지 2차 /////////////////////
-// export const UPLOAD_FILE = gql`
-//   mutation uploadFile($file: Upload!) {
-//     uploadFile(file: $file) {
-//       url
-//     }
-//   }
-// `;
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
+    }
+  }
+`;
 ///////////////////////////////////////////////////
