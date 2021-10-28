@@ -1,4 +1,6 @@
-import { useMutation, useQuery } from "@apollo/client";
+import {
+  useMutation, //useQuery
+} from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ProductCommentUI from "./MarketComment_presenter";
@@ -12,9 +14,9 @@ export default function ProductCommentWrite(props: any) {
   const router = useRouter();
 
   //////////////commentlist만들고 나서 지우기 ////////////////////
-  const { data } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
-    variables: { useditemId: router.query.useditemId },
-  });
+  // const { data } = useQuery(FETCH_USED_ITEM_QUESTIONS, {
+  //   variables: { useditemId: router.query.useditemId },
+  // });
   ////////////////////////////////////////////////////////////
 
   const [contents, setContents] = useState("");

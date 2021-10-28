@@ -59,3 +59,61 @@ export const Logout = styled(LogoutIcon)`
   height: 45px;
   cursor: pointer;
 `;
+
+export const ChargeBtn = styled.button`
+  box-sizing: border-box;
+  width: 110px;
+  height: 35px;
+  margin-left: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  background-color: bisque;
+
+  :hover {
+    background-color: lightpink;
+  }
+`;
+
+export const Charge_Wrapper = styled.div`
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 30px;
+`;
+
+export const Charge_Font = styled.div`
+  color: grey;
+  font-size: 26px;
+`;
+
+export const Charge_Img = styled.img`
+  width: 85px;
+  height: 65px;
+  margin-top: 30px;
+`;
+
+export const Charge_Font_Sub = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 30px;
+`;
+
+export const Charge_Rate_Btn = styled.button`
+  width: 100%;
+  height: 50px;
+  margin-top: 35px;
+  border-radius: 0%;
+  background-color: beige;
+  border: 1px solid lightgray;
+
+  :hover {
+    background-color: lightpink;
+  }
+`;

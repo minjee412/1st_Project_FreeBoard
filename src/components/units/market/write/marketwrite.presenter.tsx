@@ -95,6 +95,7 @@ const MarketWritePresenter = (props: any) => {
               // {...props.register("tags")}
               placeholder="#태그 #태그 #태그"
               register={props.register("tags")}
+              onChange={props.onChangeTags}
             />
           </Row>
 

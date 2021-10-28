@@ -15,6 +15,7 @@ import { onError } from "@apollo/client/link/error";
 import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 
 export const GlobalContext = createContext(null);
+
 function MyApp({ Component, pageProps }) {
   const [accessToken, setAccessToken] = useState("");
   const [userInfo, setUserInfo] = useState({});

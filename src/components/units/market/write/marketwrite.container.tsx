@@ -32,6 +32,8 @@ export default function ProductWriteContainer(props: any) {
   const [Lat, setLat] = useState("");
   const [Lng, setLng] = useState("");
 
+  const [tags, setTags] = useState([]);
+
   const [images, setImages] = useState([null, null, null]);
 
   const setImageFunc = (file: any, index: any) => {
@@ -53,6 +55,10 @@ export default function ProductWriteContainer(props: any) {
     trigger("contents");
     // onChange 됐는지, react-hook-form에 알려주는 기능
   }
+
+  const onChangeTags = (event: any) => {
+    setTags(event.target.value.split(" "));
+  };
 
   async function onClickSubmit(data: any) {
     console.log("data", data);
@@ -146,7 +152,7 @@ export default function ProductWriteContainer(props: any) {
             remarks: data.remarks,
             contents: data.contents,
             price: Number(data.price),
-            tags: data.tags,
+            tags: tags,
             images: newImages,
             useditemAddress: {
               lat: Lat,
@@ -275,6 +281,8 @@ export default function ProductWriteContainer(props: any) {
       Lng={Lng}
       setImageFunc={setImageFunc}
       setImages={setImages}
+      tags={tags}
+      onChangeTags={onChangeTags}
     />
   );
 }

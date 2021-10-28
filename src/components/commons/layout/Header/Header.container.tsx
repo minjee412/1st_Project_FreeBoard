@@ -1,13 +1,14 @@
 import HeaderUI from "./Header.presenter";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../../../../../pages/_app";
 import { FETCH_USER_LOGGED_IN } from "./Header.query";
 
 export default function Header() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const { accessToken, setAccessToken } = useContext(GlobalContext);
+  const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
 
@@ -29,6 +30,18 @@ export default function Header() {
     setAccessToken(" ");
   }
 
+  function onClickCharge() {
+    setIsOpen(true);
+  }
+
+  function onOk() {
+    setIsOpen(false);
+  }
+
+  function onCancel() {
+    setIsOpen(false);
+  }
+
   return (
     <HeaderUI
       onClicklogo={onClicklogo}
@@ -36,6 +49,10 @@ export default function Header() {
       onClickLogin={onClickLogin}
       onClickLogout={onClickLogout}
       data={data}
+      onClickCharge={onClickCharge}
+      isOpen={isOpen}
+      onOk={onOk}
+      onCancel={onCancel}
     />
   );
 }

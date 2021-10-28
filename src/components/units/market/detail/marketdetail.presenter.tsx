@@ -90,19 +90,29 @@ export default function MarketDetailPresenter(props: any) {
 
         <Tags>
           <span style={{ color: "black", marginBottom: "10px" }}>Tag</span>
-          <>
-            {props.data?.fetchUseditem.tags[0] === ""
-              ? ""
-              : `#${props.data?.fetchUseditem.tags[0]}`}
+          {props.data?.fetchUseditem.tags.length ? (
+            <>
+              {props.data?.fetchUseditem.tags[0]?.split("")[0] === "#" ? (
+                props.data?.fetchUseditem.tags[0]
+              ) : (
+                <span>#{props.data?.fetchUseditem.tags[0]}</span>
+              )}
 
-            {props.data?.fetchUseditem.tags[1] === ""
-              ? `${props.data?.fetchUseditem.tags[1]}`
-              : `#${props.data?.fetchUseditem.tags[1]}`}
+              {props.data?.fetchUseditem.tags[1]?.split("")[0] === "#" ? (
+                props.data?.fetchUseditem.tags[1]
+              ) : (
+                <span>#{props.data?.fetchUseditem.tags[1]}</span>
+              )}
 
-            {props.data?.fetchUseditem.tags[2] === ""
-              ? ""
-              : `# ${props.data?.fetchUseditem.tags[2]}`}
-          </>
+              {props.data?.fetchUseditem.tags[2]?.split("")[0] === "#" ? (
+                props.data?.fetchUseditem.tags[2]
+              ) : (
+                <span>#{props.data?.fetchUseditem.tags[2]}</span>
+              )}
+            </>
+          ) : (
+            <div></div>
+          )}
         </Tags>
       </PartWrapperColumn>
 

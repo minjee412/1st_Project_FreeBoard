@@ -32,6 +32,7 @@ export default function MyInput(props: any) {
         placeholder={props.placeholder}
         defaultValue={props.defaultValue}
         {...props.register}
+        onChange={props.onChange}
       ></SubInput>
       {/* <Error>{props.formState}</Error> */}
     </>
