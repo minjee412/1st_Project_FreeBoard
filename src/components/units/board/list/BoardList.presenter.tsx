@@ -42,7 +42,11 @@ const BoardListUI = (props: any) => {
 
       <Top>
         {props.bestBoardData?.fetchBoardsOfTheBest.map((el: any) => (
-          <BestContents key={el.id} id={el.id} onClick={props.onClickBestBoard}>
+          <BestContents
+            key={el._id}
+            id={el._id}
+            onClick={props.onClickBestBoard}
+          >
             {el.images[0] ? (
               <Img src={`https://storage.googleapis.com/${el.images[0]}`} />
             ) : (

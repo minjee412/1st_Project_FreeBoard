@@ -125,3 +125,17 @@ export const Btn_Wrapper = styled.span`
   margin-top: 80px;
   margin-left: 120px;
 `;
+
+export const Button = styled.button`
+  width: 179px;
+  height: 52px;
+  background-color: ${(props: any) => (props.isValid ? "pink" : "grey")};
+  border: none;
+  font-size: 16px;
+  color: #4f4f4f;
+  cursor: pointer;
+
+  :hover {
+    background-color: beige;
+  }
+`;

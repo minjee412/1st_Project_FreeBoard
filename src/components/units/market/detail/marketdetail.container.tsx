@@ -1,21 +1,28 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+// import { FETCH_USER_LOGGED_IN } from "../../../commons/layout/Header/Header.query";
 import MarketDetailPresenter from "./marketdetail.presenter";
 import {
   FETCH_USED_ITEM,
   DELETE_USED_ITEM,
   TOGGLE_USEDITEM_PICK,
+  CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
 } from "./marketdetail.query";
 
 export default function MarketDetailContainer() {
   const router = useRouter();
   const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
   const [toggleUseditemPick] = useMutation(TOGGLE_USEDITEM_PICK);
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
+  );
 
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
   });
+
+  // const { data: userPoint } = useQuery(FETCH_USER_LOGGED_IN);
 
   // function aaa() {
   //   router.push(`/market/${router.query.useditemId}/edit`);
@@ -30,6 +37,32 @@ export default function MarketDetailContainer() {
       router.push("/market");
     } catch (error) {
       alert("권한이 없습니다.");
+    }
+  }
+
+  function onClickBuy() {
+    // if (userPoint.fetchUserLoggedIn.userPoint.amount < data.price) {
+    //   alert("포인트가 부족 합니다.");
+    // } else {
+    //   alert("구매가 완료 되었습니다.");
+    // }
+
+    try {
+      createPointTransactionOfBuyingAndSelling({
+        variables: {
+          useritemId: router.query.useditemId,
+        },
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_USER_LOGGED_IN,
+        //     variables: userPoint.amount,
+        //   },
+        // ],
+      });
+
+      router.push("/market");
+    } catch (error: any) {
+      alert(error.message);
     }
   }
 
@@ -104,6 +137,7 @@ export default function MarketDetailContainer() {
       data={data}
       onClickDelete={onClickDelete}
       onClickLike={onClickLike}
+      onClickBuy={onClickBuy}
     />
   );
 }

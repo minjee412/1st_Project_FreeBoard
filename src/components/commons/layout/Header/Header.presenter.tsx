@@ -2,10 +2,10 @@
 import {
   Button_Wrapper,
   ChargeBtn,
-  Charge_Font,
-  Charge_Font_Sub,
-  Charge_Img,
-  Charge_Rate_Btn,
+  // Charge_Font,
+  // Charge_Font_Sub,
+  // Charge_Img,
+  // Charge_Rate_Btn,
   Charge_Wrapper,
   InnerButton,
   InnerLogo,
@@ -15,6 +15,9 @@ import {
 } from "./Header.styles";
 import { HeartTwoTone } from "@ant-design/icons";
 import { Modal } from "antd";
+import { Select } from "antd";
+
+export const { Option } = Select;
 
 export default function HeaderUI(props: any) {
   return (
@@ -22,12 +25,15 @@ export default function HeaderUI(props: any) {
       {props.isOpen && (
         <Modal visible={true} onOk={props.onOk} onCancel={props.onCancel}>
           <Charge_Wrapper>
-            <Charge_Font>포인트 충전하기</Charge_Font>
-            <Charge_Img src="/charge.png" />
-            <Charge_Font_Sub>충전하실 금액을 선택 해주세요 !!</Charge_Font_Sub>
-            <Charge_Rate_Btn>1000원</Charge_Rate_Btn>
-            <Charge_Rate_Btn>10000원</Charge_Rate_Btn>
-            <Charge_Rate_Btn>100000원</Charge_Rate_Btn>
+            <Select
+              defaultValue="충전하실 금액을 선택 해주세요."
+              style={{ width: "100%" }}
+              onChange={props.handleChange}
+            >
+              <Option value="1000">1000원</Option>
+              <Option value="10000">10000원</Option>
+              <Option value="100000">100000원</Option>
+            </Select>
           </Charge_Wrapper>
         </Modal>
       )}

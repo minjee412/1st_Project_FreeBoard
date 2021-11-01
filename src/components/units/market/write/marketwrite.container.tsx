@@ -184,7 +184,7 @@ export default function ProductWriteContainer(props: any) {
       contents?: string;
       price?: number;
       tags?: string;
-      // images?: string;
+      images?: [string];
     }
 
     const myUpdatemarketInput: IMyUpdateMarketdInput = {};
@@ -195,6 +195,22 @@ export default function ProductWriteContainer(props: any) {
     if (data.contents) myUpdatemarketInput.contents = data.contents;
     if (data.price) myUpdatemarketInput.price = Number(data.price);
     // if (data.tags) myUpdatemarketInput.tags = data.tags;
+
+    const results = await Promise.all(
+      images.map((el: any) =>
+        el ? uploadFile({ variables: { file: el } }) : null
+      )
+    ); // [null, result, null]
+
+    const newImages = results.map((el) => (el ? el.data.uploadFile.url : ""));
+    myUpdatemarketInput.images = newImages;
+
+    // const uploadFiles = images
+    //   .filter((el) => el)
+    //   .map((el) => uploadFile({ variables: { file: el } }));
+    // const results = await Promise.all(uploadFiles);
+    // const nextImages = results.map((el) => el?.data.uploadFile.url || "");
+    // myUpdatemarketInput.images = nextImages;
 
     try {
       const result = await updateUseditem({

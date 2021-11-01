@@ -17,6 +17,7 @@ import {
   Tags,
   TitleWrapper,
   Wrapper,
+  Button,
 } from "./marketdetail.styles";
 import Dompurify from "dompurify";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -122,7 +123,7 @@ export default function MarketDetailPresenter(props: any) {
 
       <Btn_Wrapper>
         <BasicButton name="목록으로" id="/market" />
-        <BasicButton name="구매하기" />
+        <Button onClick={props.onClickBuy}>구매하기</Button>
         {/* <button onClick={props.aaa}>수정하기</button> */}
         <BasicButton
           name="수정하기"

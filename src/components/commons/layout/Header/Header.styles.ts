@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Select } from "antd";
+const { Option } = Select;
 
 export const Wrapper = styled.div`
   height: 100px;
@@ -79,16 +81,17 @@ export const ChargeBtn = styled.button`
 `;
 
 export const Charge_Wrapper = styled.div`
-  width: 500px;
-  height: 500px;
+  box-sizing: border-box;
+  width: 300px;
+  height: 100px;
   display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  padding: 30px;
+  /* padding: 30px; */
 `;
 
-export const Charge_Font = styled.div`
+export const Charge_Font = styled(Select)`
   color: grey;
   font-size: 26px;
 `;
@@ -105,13 +108,14 @@ export const Charge_Font_Sub = styled.div`
   margin-top: 30px;
 `;
 
-export const Charge_Rate_Btn = styled.button`
+export const Charge_Rate_Btn = styled(Select)`
   width: 100%;
   height: 50px;
   margin-top: 35px;
   border-radius: 0%;
   background-color: beige;
   border: 1px solid lightgray;
+  cursor: pointer;
 
   :hover {
     background-color: lightpink;

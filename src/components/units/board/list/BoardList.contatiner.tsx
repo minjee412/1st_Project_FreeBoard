@@ -44,6 +44,7 @@ export default function BoardListContainer() {
   }
 
   function onClickBestBoard(event: any) {
+    console.log(event.currentTarget.id);
     router.push(`/boards/${event.currentTarget.id}`);
   }
 
